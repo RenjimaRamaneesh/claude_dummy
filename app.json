@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/cart/cart"
+    "pages/cart/cart",
+    "pages/confirmation/confirmation"
   ],
   "window": {
     "navigationBarTitleText": "",

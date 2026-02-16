@@ -1,0 +1,32 @@
+<!-- pages/confirmation/confirmation.wxml -->
+<view class="confirmation-page">
+  <!-- Shade Gradient at Top -->
+  <view class="shade"></view>
+
+  <!-- Status Bar Spacer -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- Content -->
+  <view class="content">
+    <!-- Tick Icon -->
+    <view class="tick-circle">
+      <view class="tick-mark"></view>
+    </view>
+
+    <!-- Title -->
+    <text class="title">Payment Successful</text>
+
+    <!-- Description -->
+    <text class="description">Your meals have been successfully scheduled. You can add more meals or manage your plan anytime.</text>
+
+    <!-- Back to Home Button -->
+    <view class="home-btn" bindtap="goToHome">
+      <text class="home-btn-text">Back to Home</text>
+    </view>
+  </view>
+
+  <!-- Home Indicator -->
+  <view class="home-indicator">
+    <view class="indicator-bar"></view>
+  </view>
+</view>
