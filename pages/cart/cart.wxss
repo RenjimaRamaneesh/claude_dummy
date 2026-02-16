@@ -1,0 +1,1012 @@
+/* pages/cart/cart.wxss */
+
+/* ========== Page Container ========== */
+.cart-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== Shade Gradient at Top ========== */
+.cart-page::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 200rpx;
+  left: 0;
+  top: 0;
+  background: linear-gradient(180deg, #90CA14 0%, #FFFFFF 100%);
+  border-radius: 40rpx;
+  z-index: 0;
+}
+
+/* ========== Status Bar ========== */
+.status-bar {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Header ========== */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 40rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.back-button {
+  width: 64rpx;
+  height: 64rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+}
+
+.back-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-left {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #1E1E1E;
+  line-height: 1;
+}
+
+.header-title {
+  font-weight: 600;
+  font-size: 40rpx;
+  line-height: 40rpx;
+  color: #1E1E1E;
+  margin-left: 20rpx;
+}
+
+/* ========== View Toggle ========== */
+.view-toggle {
+  display: flex;
+  padding: 0 40rpx;
+  margin-top: 16rpx;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.toggle-btn {
+  flex: 1;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+  border-radius: 20rpx;
+}
+
+.toggle-btn text {
+  font-weight: 600;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  color: #A0A0A0;
+}
+
+.toggle-btn.active {
+  background: #456401;
+}
+
+.toggle-btn.active text {
+  color: #FFFFFF;
+}
+
+/* ========== Info Banner ========== */
+.info-banner {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 40rpx;
+  margin-top: 16rpx;
+  background: #EFD5FF;
+  position: relative;
+  z-index: 1;
+}
+
+.info-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #9E4BD1;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.info-text {
+  font-weight: 500;
+  font-size: 22rpx;
+  line-height: 36rpx;
+  color: #000000;
+}
+
+/* ========== Scroll Content ========== */
+.scroll-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Delivery Details ========== */
+.delivery-details {
+  margin: 20rpx 40rpx 0;
+  padding: 24rpx 32rpx;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delivery-info {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.location-icon {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+
+.delivery-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-label {
+  font-weight: 600;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #000000;
+}
+
+.delivery-address {
+  font-weight: 700;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #1E1E1E;
+  margin-top: 4rpx;
+}
+
+.edit-btn {
+  width: 56rpx;
+  height: 56rpx;
+  background: #FFFFFF;
+  box-shadow: 2rpx 2rpx 24rpx rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.edit-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+/* ========== Meal Cards ========== */
+.meal-cards {
+  padding: 0 40rpx;
+  margin-top: 20rpx;
+}
+
+.meal-card {
+  background: #FFFFFF;
+  border: 2rpx solid #456401;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+  border-radius: 40rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+/* Meal Card Header */
+.meal-card-header {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 32rpx 16rpx;
+}
+
+.meal-time-info {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sun-icon-wrap {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sun-icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.meal-date-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12rpx;
+}
+
+.meal-date {
+  font-weight: 700;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  color: #456401;
+}
+
+.meal-type {
+  font-weight: 500;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  color: #000000;
+}
+
+.time-tag {
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #456401;
+  border-radius: 16rpx;
+  padding: 4rpx 12rpx;
+  margin-left: 16rpx;
+}
+
+.time-icon-small {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 6rpx;
+}
+
+.time-text {
+  font-weight: 500;
+  font-size: 20rpx;
+  line-height: 32rpx;
+  color: #000000;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 12rpx;
+}
+
+.action-btn {
+  width: 56rpx;
+  height: 56rpx;
+  background: #FFFFFF;
+  box-shadow: 2rpx 2rpx 24rpx rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+/* Meal Card Body */
+.meal-card-body {
+  padding: 0 32rpx 24rpx;
+}
+
+.meal-main-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.meal-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-name {
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 40rpx;
+  color: #000000;
+}
+
+.meal-vendor {
+  font-weight: 500;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #7A7A7A;
+  margin-top: 4rpx;
+}
+
+.meal-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Quantity Tab */
+.quantity-tab {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 20rpx rgba(0, 0, 0, 0.2);
+  border-radius: 16rpx;
+  padding: 6rpx;
+  gap: 16rpx;
+}
+
+.qty-btn {
+  width: 32rpx;
+  height: 32rpx;
+  background: #EBEBEB;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-icon {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #456401;
+  line-height: 1;
+}
+
+.qty-value {
+  font-weight: 700;
+  font-size: 32rpx;
+  line-height: 36rpx;
+  color: #000000;
+  min-width: 20rpx;
+  text-align: center;
+}
+
+.meal-cost {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+  gap: 4rpx;
+}
+
+.currency {
+  font-weight: 500;
+  font-size: 22rpx;
+  color: #1E1E1E;
+}
+
+.price {
+  font-weight: 500;
+  font-size: 26rpx;
+  line-height: 24rpx;
+  color: #1E1E1E;
+}
+
+/* Customization Tags */
+.customization-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 20rpx;
+}
+
+.custom-tag {
+  border: 2rpx solid #456401;
+  border-radius: 20rpx;
+  padding: 6rpx 12rpx;
+  max-width: 100%;
+}
+
+.custom-tag-text {
+  font-weight: 600;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drink-tag {
+  border-right: none;
+  border-radius: 20rpx 0 0 20rpx;
+}
+
+/* Stats Divider */
+.stats-divider {
+  width: 100%;
+  height: 2rpx;
+  background: #DFDFDF;
+  margin-top: 20rpx;
+}
+
+/* Nutrition Stats */
+.nutrition-stats {
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+  padding-top: 8rpx;
+}
+
+.stat-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-group.calories {
+  flex: none;
+}
+
+.fire-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.stat-value-cal {
+  font-weight: 700;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #000000;
+  margin-left: 4rpx;
+}
+
+.stat-separator {
+  width: 2rpx;
+  height: 56rpx;
+  border-left: 2rpx dashed #949494;
+  margin: 0 12rpx;
+}
+
+.stat-color-bar {
+  width: 32rpx;
+  height: 54rpx;
+  border-radius: 8rpx;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.stat-color-bar.protein {
+  background: #54EAE7;
+}
+
+.stat-color-bar.carbs {
+  background: #FAC58B;
+}
+
+.stat-color-bar.fat {
+  background: #F28893;
+}
+
+.stat-value {
+  font-weight: 700;
+  font-size: 28rpx;
+  line-height: 34rpx;
+  color: #000000;
+  white-space: pre-line;
+}
+
+/* ========== Meal Coverage Section ========== */
+.meal-coverage-section {
+  margin: 20rpx 40rpx 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.section-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+
+.section-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #000000;
+}
+
+.section-subtitle {
+  font-weight: 500;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #6B6B6B;
+  margin-top: 2rpx;
+}
+
+.meal-coverage-card {
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+  border-radius: 40rpx;
+  padding: 20rpx;
+}
+
+.meal-option {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 20rpx rgba(0, 0, 0, 0.2);
+  border-radius: 24rpx;
+  padding: 12rpx 20rpx;
+  margin-bottom: 12rpx;
+}
+
+.meal-option:last-child {
+  margin-bottom: 0;
+}
+
+.tick-icon,
+.no-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.meal-option-label {
+  font-weight: 600;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #6B6B6B;
+  flex: 1;
+}
+
+.meal-option-status {
+  font-weight: 600;
+  font-size: 26rpx;
+  line-height: 36rpx;
+}
+
+.selected-text {
+  color: #90CA14;
+}
+
+.add-meal-btn {
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #456401;
+  border-radius: 16rpx;
+  padding: 4rpx 12rpx;
+}
+
+.add-meal-text {
+  font-weight: 500;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  color: #456401;
+}
+
+.add-meal-arrow {
+  font-size: 28rpx;
+  color: #456401;
+  margin-left: 6rpx;
+  line-height: 1;
+}
+
+/* ========== Schedule Section ========== */
+.schedule-section {
+  margin: 30rpx 48rpx 0;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+  border-radius: 40rpx;
+  padding: 32rpx;
+}
+
+.schedule-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24rpx;
+}
+
+.schedule-title {
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 40rpx;
+  color: #000000;
+}
+
+.schedule-subtitle {
+  font-weight: 500;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  color: #7C7C7C;
+  margin-top: 6rpx;
+}
+
+/* Date Pills */
+.date-pills {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.date-pill {
+  padding: 8rpx 24rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #949494;
+  border-radius: 16rpx;
+}
+
+.date-pill text {
+  font-weight: 500;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #000000;
+}
+
+.date-pill.active {
+  background: #E0EFC0;
+  border-color: #456401;
+}
+
+.date-pill.active text {
+  color: #456401;
+}
+
+/* Schedule Divider */
+.schedule-divider {
+  width: 100%;
+  height: 2rpx;
+  background: #DDDDDD;
+  margin-bottom: 24rpx;
+}
+
+/* Schedule Toggle Row */
+.schedule-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.schedule-banner {
+  flex: 1;
+  height: 120rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  margin-right: 16rpx;
+}
+
+.schedule-banner-img {
+  width: 100%;
+  height: 100%;
+}
+
+.toggle-wrap {
+  flex-shrink: 0;
+}
+
+/* Time Dropdown */
+.time-dropdown {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.16);
+  border-radius: 40rpx;
+  padding: 12rpx 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.time-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 12rpx;
+}
+
+.time-dropdown-text {
+  font-weight: 500;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #000000;
+  flex: 1;
+}
+
+.time-dropdown-icon {
+  width: 72rpx;
+  height: 72rpx;
+  background: #DCF0B2;
+  border-radius: 4rpx 36rpx 36rpx 4rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-arrow {
+  font-size: 24rpx;
+  color: #456401;
+}
+
+/* Schedule Button */
+.schedule-btn {
+  width: 100%;
+  height: 96rpx;
+  background: #90CA14;
+  box-shadow: 4rpx 4rpx 40rpx rgba(0, 0, 0, 0.25);
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-btn-text {
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  color: #1E1E1E;
+}
+
+/* ========== Balance Your Plate Section ========== */
+.balance-plate-section {
+  margin: 30rpx 40rpx 0;
+}
+
+.balance-icon {
+  /* Override for purple balance icon */
+}
+
+.addons-scroll {
+  white-space: nowrap;
+  margin-top: 8rpx;
+}
+
+.addons-list {
+  display: flex;
+  gap: 16rpx;
+  padding-bottom: 8rpx;
+}
+
+.addon-item {
+  width: 172rpx;
+  flex-shrink: 0;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.addon-image {
+  width: 172rpx;
+  height: 164rpx;
+  border-radius: 16rpx;
+  background: #F5F5F5;
+}
+
+.addon-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8rpx;
+  position: relative;
+  padding-right: 44rpx;
+}
+
+.addon-name {
+  font-weight: 700;
+  font-size: 20rpx;
+  line-height: 24rpx;
+  color: #000000;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.addon-benefit {
+  font-weight: 400;
+  font-size: 20rpx;
+  line-height: 24rpx;
+  color: #456401;
+  margin-top: 2rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.addon-add-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 38rpx;
+  height: 34rpx;
+  background: #CCE19F;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addon-plus {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #456401;
+  line-height: 1;
+}
+
+/* ========== Dashed Divider ========== */
+.dashed-divider {
+  margin: 30rpx 40rpx;
+  border-top: 4rpx dashed #D8D8D8;
+}
+
+/* ========== Add Other Meals ========== */
+.other-meals-section {
+  margin: 0 48rpx;
+  padding-bottom: 20rpx;
+}
+
+.other-meals-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.other-meals-title {
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 40rpx;
+  color: #000000;
+}
+
+.view-offers-link {
+  font-weight: 500;
+  font-size: 26rpx;
+  line-height: 40rpx;
+  color: #456401;
+  text-decoration: underline;
+}
+
+/* Meal Banners */
+.meal-banners {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.meal-banner {
+  width: 100%;
+  height: 136rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  position: relative;
+  border: 4rpx solid #456401;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+}
+
+.banner-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 24rpx;
+}
+
+.banner-left {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.banner-food-img {
+  width: 100%;
+  height: 90%;
+}
+
+.banner-right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16rpx;
+}
+
+.banner-meal-type {
+  font-weight: 500;
+  font-size: 20rpx;
+  line-height: 24rpx;
+  color: #000000;
+}
+
+.banner-brand {
+  font-weight: 700;
+  font-size: 26rpx;
+  line-height: 32rpx;
+  color: #000000;
+  margin-top: 4rpx;
+}
+
+/* ========== Bottom Spacer ========== */
+.bottom-spacer {
+  height: 200rpx;
+}
+
+/* ========== Bottom Nav Bar ========== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #FFFFFF;
+  box-shadow: 0 0 100rpx 4rpx rgba(30, 30, 30, 0.1);
+  border-radius: 44rpx 44rpx 0 0;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-bar-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24rpx 40rpx 16rpx;
+}
+
+.payment-btn {
+  width: 524rpx;
+  height: 92rpx;
+  background: #90CA14;
+  box-shadow: 4rpx 4rpx 40rpx rgba(0, 0, 0, 0.25);
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-btn-text {
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  color: #1E1E1E;
+}
+
+/* Home Indicator */
+.home-indicator {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16rpx;
+  padding-top: 8rpx;
+}
+
+.indicator-bar {
+  width: 288rpx;
+  height: 10rpx;
+  background: #000000;
+  border-radius: 200rpx;
+}

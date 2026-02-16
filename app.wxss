@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Manrope';
+  src: url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+}
+
+page {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+}
