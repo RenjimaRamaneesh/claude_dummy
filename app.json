@@ -2,6 +2,7 @@
   "pages": [
     "pages/cart/cart",
     "pages/cart-multi/cart-multi",
+    "pages/multicart/multicart",
     "pages/confirmation/confirmation"
   ],
   "window": {

@@ -1,0 +1,300 @@
+<!-- pages/multicart/multicart.wxml -->
+<view class="cart-page">
+  <!-- Status Bar Spacer -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- Shade Gradient -->
+  <view class="shade-gradient"></view>
+
+  <!-- Top Notch / Header -->
+  <view class="header">
+    <view class="back-button" bindtap="goBack">
+      <view class="back-icon">
+        <text class="arrow-left">&#x2039;</text>
+      </view>
+    </view>
+    <text class="header-title">Cart Items</text>
+  </view>
+
+  <!-- Day Wise / Meal Wise Toggle -->
+  <view class="view-toggle">
+    <view class="toggle-btn {{activeView === 'day' ? 'active' : ''}}" bindtap="switchView" data-view="day">
+      <text>Day Wise</text>
+    </view>
+    <view class="toggle-btn {{activeView === 'meal' ? 'active' : ''}}" bindtap="switchView" data-view="meal">
+      <text>Meal Wise</text>
+    </view>
+  </view>
+
+  <!-- Info Banner (H Tag) -->
+  <view class="info-banner">
+    <view class="info-dot"></view>
+    <text class="info-text">Lunch set. Breakfast and dinner empty—add them now?</text>
+  </view>
+
+  <!-- Scrollable Content -->
+  <scroll-view scroll-y class="scroll-content" style="height: {{scrollHeight}}px;">
+
+    <!-- Delivery Details -->
+    <view class="delivery-details">
+      <view class="delivery-info">
+        <image class="location-icon" src="/images/location.svg" mode="aspectFit" />
+        <view class="delivery-text">
+          <text class="delivery-label">Delivery Details</text>
+          <text class="delivery-address">Home -1234 Al Noor Street, Dubai, UAE..</text>
+        </view>
+      </view>
+      <view class="edit-btn" bindtap="editDelivery">
+        <image class="edit-icon" src="/images/edit.svg" mode="aspectFit" />
+      </view>
+    </view>
+
+    <!-- Meal Data Cards Carousel -->
+    <view class="meal-cards-carousel">
+      <scroll-view scroll-x class="meal-cards-scroll" bindscroll="onMealCardScroll" enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="meal-cards-track">
+          <block wx:for="{{mealItems}}" wx:key="id">
+            <view class="meal-card" data-index="{{index}}">
+              <!-- Notch Header -->
+              <view class="meal-card-header">
+                <view class="meal-time-info">
+                  <view class="sun-icon-wrap">
+                    <image class="sun-icon" src="/images/sun.svg" mode="aspectFit" />
+                  </view>
+                  <view class="meal-date-info">
+                    <text class="meal-date">{{item.date}}</text>
+                    <text class="meal-type">{{item.mealType}}</text>
+                  </view>
+                </view>
+                <!-- Time Tag -->
+                <view class="time-tag" wx:if="{{item.showTimeTag}}">
+                  <image class="time-icon-small" src="/images/clock.svg" mode="aspectFit" />
+                  <text class="time-text">{{item.timeSlot}}</text>
+                </view>
+                <view class="card-actions">
+                  <view class="action-btn" bindtap="editMeal" data-id="{{item.id}}">
+                    <image class="action-icon" src="/images/edit.svg" mode="aspectFit" />
+                  </view>
+                  <view class="action-btn" bindtap="deleteMeal" data-id="{{item.id}}">
+                    <image class="action-icon" src="/images/delete.svg" mode="aspectFit" />
+                  </view>
+                </view>
+              </view>
+
+              <!-- Main Content -->
+              <view class="meal-card-body">
+                <view class="meal-main-row">
+                  <view class="meal-info">
+                    <text class="meal-name">{{item.name}}</text>
+                    <text class="meal-vendor">by {{item.vendor}}</text>
+                  </view>
+                  <view class="meal-right">
+                    <!-- Quantity Tab -->
+                    <view class="quantity-tab">
+                      <view class="qty-btn" bindtap="decreaseQty" data-id="{{item.id}}">
+                        <text class="qty-icon">-</text>
+                      </view>
+                      <text class="qty-value">{{item.quantity}}</text>
+                      <view class="qty-btn" bindtap="increaseQty" data-id="{{item.id}}">
+                        <text class="qty-icon">+</text>
+                      </view>
+                    </view>
+                    <!-- Cost -->
+                    <view class="meal-cost">
+                      <text class="currency">AED</text>
+                      <text class="price">{{item.price}}</text>
+                    </view>
+                  </view>
+                </view>
+
+                <!-- Customization Tags -->
+                <view class="customization-row">
+                  <view class="custom-tag">
+                    <text class="custom-tag-text">Base: {{item.base}}</text>
+                  </view>
+                  <view class="custom-tag">
+                    <text class="custom-tag-text">Sides: {{item.sides}}</text>
+                  </view>
+                  <view class="custom-tag drink-tag">
+                    <text class="custom-tag-text">Drink: {{item.drink}}</text>
+                  </view>
+                </view>
+
+                <!-- Divider -->
+                <view class="stats-divider"></view>
+
+                <!-- Nutrition Stats -->
+                <view class="nutrition-stats">
+                  <view class="stat-group calories">
+                    <image class="fire-icon" src="/images/fire.svg" mode="aspectFit" />
+                    <text class="stat-value-cal">{{item.calories}} kcal</text>
+                  </view>
+                  <view class="stat-separator"></view>
+                  <view class="stat-group">
+                    <view class="stat-color-bar protein"></view>
+                    <text class="stat-value">{{item.protein}}\nProtein</text>
+                  </view>
+                  <view class="stat-separator"></view>
+                  <view class="stat-group">
+                    <view class="stat-color-bar carbs"></view>
+                    <text class="stat-value">{{item.carbs}}\nCarbs</text>
+                  </view>
+                  <view class="stat-separator"></view>
+                  <view class="stat-group">
+                    <view class="stat-color-bar fat"></view>
+                    <text class="stat-value">{{item.fat}}\nFat</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+
+      <!-- Carousel Indicators -->
+      <view class="carousel-indicators" wx:if="{{mealItems.length > 1}}">
+        <block wx:for="{{mealItems}}" wx:key="id">
+          <view class="indicator-dot {{activeCardIndex === index ? 'active' : ''}}"></view>
+        </block>
+      </view>
+    </view>
+
+    <!-- Meal Coverage Section -->
+    <view class="meal-coverage-section">
+      <view class="section-header">
+        <image class="section-icon" src="/images/bowl-food.svg" mode="aspectFit" />
+        <view class="section-header-text">
+          <text class="section-title">Meal Coverage</text>
+          <text class="section-subtitle">Add breakfast or dinner to balance your daily nutrition</text>
+        </view>
+      </view>
+      <view class="meal-coverage-card">
+        <!-- Breakfast -->
+        <view class="meal-option selected">
+          <image class="tick-icon" src="/images/tick-circle.svg" mode="aspectFit" />
+          <text class="meal-option-label">Break Fast</text>
+          <text class="meal-option-status selected-text">Selected</text>
+        </view>
+        <!-- Lunch -->
+        <view class="meal-option selected">
+          <image class="tick-icon" src="/images/tick-circle.svg" mode="aspectFit" />
+          <text class="meal-option-label">Lunch</text>
+          <text class="meal-option-status selected-text">Selected</text>
+        </view>
+        <!-- Dinner -->
+        <view class="meal-option">
+          <image class="no-icon" src="/images/no-circle.svg" mode="aspectFit" />
+          <text class="meal-option-label">Dinner</text>
+          <view class="add-meal-btn" bindtap="addMealType" data-type="dinner">
+            <text class="add-meal-text">Add</text>
+            <text class="add-meal-arrow">&#x203A;</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Make Life Easier / Schedule Section -->
+    <view class="schedule-section">
+      <view class="schedule-header">
+        <text class="schedule-title">Schedule Your Order for Lunch</text>
+        <text class="schedule-subtitle">Add More, Save More!</text>
+      </view>
+
+      <!-- Date Range Display -->
+      <view class="date-range-row">
+        <text class="date-range-text">{{dateRangeLabel}}</text>
+        <text class="date-range-hint">select dates to repeat order</text>
+      </view>
+
+      <!-- Schedule Banner with Toggle -->
+      <view class="schedule-toggle-row">
+        <view class="schedule-banner">
+          <image class="schedule-banner-img" src="/images/schedule-banner.png" mode="aspectFill" />
+        </view>
+        <view class="toggle-wrap">
+          <switch checked="{{scheduleEnabled}}" bindchange="toggleSchedule" color="#90CA14" />
+        </view>
+      </view>
+
+      <!-- Day Selector Pills -->
+      <view class="day-selector" wx:if="{{scheduleEnabled}}">
+        <block wx:for="{{weekDays}}" wx:key="id">
+          <view class="day-pill {{item.active ? 'active' : ''}}" bindtap="selectDay" data-id="{{item.id}}">
+            <text class="day-pill-label">{{item.day}}</text>
+            <text class="day-pill-date">{{item.date}}</text>
+          </view>
+        </block>
+        <!-- Edit Days Button -->
+        <view class="day-pill edit-days" bindtap="editDays">
+          <image class="edit-days-icon" src="/images/edit.svg" mode="aspectFit" />
+          <text class="edit-days-text">Edit\nDays</text>
+        </view>
+      </view>
+
+      <!-- Divider -->
+      <view class="schedule-divider" wx:if="{{scheduleEnabled}}"></view>
+
+      <!-- Time Dropdown -->
+      <view class="time-dropdown" wx:if="{{scheduleEnabled}}">
+        <image class="time-icon" src="/images/clock.svg" mode="aspectFit" />
+        <text class="time-dropdown-text">1:00 to 2:00 PM</text>
+        <view class="time-dropdown-icon">
+          <text class="dropdown-arrow">&#x25BC;</text>
+        </view>
+      </view>
+
+      <!-- Plan Button -->
+      <view class="schedule-btn" bindtap="planSchedule">
+        <text class="schedule-btn-text">Plan</text>
+      </view>
+    </view>
+
+    <!-- Balance Your Plate Section -->
+    <view class="balance-plate-section">
+      <view class="section-header">
+        <image class="section-icon balance-icon" src="/images/balance.svg" mode="aspectFit" />
+        <view class="section-header-text">
+          <text class="section-title">Balance Your Plate</text>
+          <text class="section-subtitle">Smart add-ons to complement your macros</text>
+        </view>
+      </view>
+
+      <!-- Add-on Items Scroll -->
+      <scroll-view scroll-x class="addons-scroll">
+        <view class="addons-list">
+          <block wx:for="{{addOnItems}}" wx:key="id">
+            <view class="addon-item">
+              <image class="addon-image" src="{{item.image}}" mode="aspectFill" />
+              <view class="addon-info">
+                <text class="addon-name">{{item.name}}</text>
+                <text class="addon-benefit">{{item.benefit}}</text>
+              </view>
+              <view class="addon-add-btn" bindtap="addAddon" data-id="{{item.id}}">
+                <text class="addon-plus">+</text>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- Dashed Divider -->
+    <view class="dashed-divider"></view>
+
+    <!-- Bottom spacer for nav bar -->
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <!-- Bottom Nav Bar -->
+  <view class="bottom-nav">
+    <view class="nav-bar-content">
+      <view class="payment-btn" bindtap="goToPayment">
+        <text class="payment-btn-text">Go To Payment</text>
+      </view>
+    </view>
+    <!-- Home Indicator -->
+    <view class="home-indicator">
+      <view class="indicator-bar"></view>
+    </view>
+  </view>
+</view>
