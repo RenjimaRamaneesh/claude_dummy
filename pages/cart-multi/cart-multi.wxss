@@ -1,4 +1,4 @@
-/* pages/cart/cart.wxss */
+/* pages/cart-multi/cart-multi.wxss */
 
 /* ========== Page Container ========== */
 .cart-page {
@@ -614,7 +614,7 @@
   line-height: 1;
 }
 
-/* ========== Schedule Section ========== */
+/* ========== Schedule Section (Multi-Day) ========== */
 .schedule-section {
   margin: 30rpx 48rpx 0;
   background: #FFFFFF;
@@ -644,42 +644,26 @@
   margin-top: 6rpx;
 }
 
-/* Date Pills */
-.date-pills {
+/* Date Range Row */
+.date-range-row {
   display: flex;
-  gap: 16rpx;
+  align-items: baseline;
+  justify-content: space-between;
   margin-bottom: 24rpx;
 }
 
-.date-pill {
-  padding: 8rpx 24rpx;
-  background: #FFFFFF;
-  border: 2rpx solid #949494;
-  border-radius: 16rpx;
-}
-
-.date-pill text {
-  font-weight: 500;
-  font-size: 24rpx;
+.date-range-text {
+  font-weight: 600;
+  font-size: 30rpx;
   line-height: 32rpx;
   color: #000000;
 }
 
-.date-pill.active {
-  background: #E0EFC0;
-  border-color: #456401;
-}
-
-.date-pill.active text {
-  color: #456401;
-}
-
-/* Schedule Divider */
-.schedule-divider {
-  width: 100%;
-  height: 2rpx;
-  background: #DDDDDD;
-  margin-bottom: 24rpx;
+.date-range-hint {
+  font-weight: 500;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #7C7C7C;
 }
 
 /* Schedule Toggle Row */
@@ -705,6 +689,72 @@
 
 .toggle-wrap {
   flex-shrink: 0;
+}
+
+/* Day Selector Pills */
+.day-selector {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+  flex-wrap: nowrap;
+}
+
+.day-pill {
+  width: 106rpx;
+  height: 104rpx;
+  background: #CCE19F;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.day-pill.active {
+  background: #90CA14;
+}
+
+.day-pill-label {
+  font-weight: 700;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  color: #456401;
+}
+
+.day-pill-date {
+  font-weight: 700;
+  font-size: 48rpx;
+  line-height: 48rpx;
+  color: #456401;
+}
+
+/* Edit Days Button */
+.day-pill.edit-days {
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
+}
+
+.edit-days-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.edit-days-text {
+  font-weight: 700;
+  font-size: 28rpx;
+  line-height: 32rpx;
+  text-align: center;
+  color: #456401;
+  white-space: pre-line;
+}
+
+/* Schedule Divider */
+.schedule-divider {
+  width: 100%;
+  height: 2rpx;
+  background: #DDDDDD;
+  margin-bottom: 24rpx;
 }
 
 /* Time Dropdown */
@@ -747,7 +797,7 @@
   color: #456401;
 }
 
-/* Schedule Button */
+/* Plan Button */
 .schedule-btn {
   width: 100%;
   height: 96rpx;
@@ -856,101 +906,6 @@
 .dashed-divider {
   margin: 30rpx 40rpx;
   border-top: 4rpx dashed #D8D8D8;
-}
-
-/* ========== Add Other Meals ========== */
-.other-meals-section {
-  margin: 0 48rpx;
-  padding-bottom: 20rpx;
-}
-
-.other-meals-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20rpx;
-}
-
-.other-meals-title {
-  font-weight: 600;
-  font-size: 32rpx;
-  line-height: 40rpx;
-  color: #000000;
-}
-
-.view-offers-link {
-  font-weight: 500;
-  font-size: 26rpx;
-  line-height: 40rpx;
-  color: #456401;
-  text-decoration: underline;
-}
-
-/* Meal Banners */
-.meal-banners {
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
-}
-
-.meal-banner {
-  width: 100%;
-  height: 136rpx;
-  border-radius: 24rpx;
-  overflow: hidden;
-  position: relative;
-  border: 4rpx solid #456401;
-  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.2);
-}
-
-.banner-bg {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.banner-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 0 24rpx;
-}
-
-.banner-left {
-  width: 45%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.banner-food-img {
-  width: 100%;
-  height: 90%;
-}
-
-.banner-right {
-  display: flex;
-  flex-direction: column;
-  margin-left: 16rpx;
-}
-
-.banner-meal-type {
-  font-weight: 500;
-  font-size: 20rpx;
-  line-height: 24rpx;
-  color: #000000;
-}
-
-.banner-brand {
-  font-weight: 700;
-  font-size: 26rpx;
-  line-height: 32rpx;
-  color: #000000;
-  margin-top: 4rpx;
 }
 
 /* ========== Bottom Spacer ========== */

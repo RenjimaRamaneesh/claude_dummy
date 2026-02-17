@@ -1,11 +1,19 @@
-// pages/cart/cart.js
+// pages/cart-multi/cart-multi.js
 Page({
   data: {
     statusBarHeight: 44,
     scrollHeight: 0,
     activeView: 'day',
-    selectedDate: 'today',
-    scheduleEnabled: false,
+    scheduleEnabled: true,
+    dateRangeLabel: 'Mon,13 Jan - Fri,17 Jan',
+
+    weekDays: [
+      { id: 1, day: 'MON', date: '13', active: true },
+      { id: 2, day: 'TUE', date: '14', active: false },
+      { id: 3, day: 'WED', date: '15', active: false },
+      { id: 4, day: 'THU', date: '16', active: false },
+      { id: 5, day: 'FRI', date: '17', active: false }
+    ],
 
     mealItems: [
       {
@@ -13,7 +21,7 @@ Page({
         date: 'Mon 13',
         mealType: 'Lunch',
         showTimeTag: true,
-        timeSlot: '12:00 to 1:00 PM',
+        timeSlot: '1:00 to 2:00 PM',
         name: 'Chicken Keema Rice',
         vendor: 'FitFuel Kitchen',
         rating: 4.6,
@@ -60,23 +68,6 @@ Page({
         benefit: '+10g protein',
         image: '/images/addon-placeholder.png'
       }
-    ],
-
-    otherMealBanners: [
-      {
-        id: 1,
-        mealLabel: 'Calorie Smart',
-        brandName: 'CalorieFit',
-        backgroundImage: '/images/banner-placeholder.png',
-        foodImage: '/images/food-placeholder.png'
-      },
-      {
-        id: 2,
-        mealLabel: 'Calorie Smart',
-        brandName: 'CalorieFit',
-        backgroundImage: '/images/banner-placeholder.png',
-        foodImage: '/images/food-placeholder.png'
-      }
     ]
   },
 
@@ -84,9 +75,7 @@ Page({
     const systemInfo = wx.getWindowInfo();
     const menuButtonInfo = wx.getMenuButtonBoundingClientRect();
     const statusBarHeight = systemInfo.statusBarHeight || 44;
-    const navBarHeight = menuButtonInfo.bottom + menuButtonInfo.top - statusBarHeight * 2 + 8;
     const screenHeight = systemInfo.windowHeight;
-    const bottomNavHeight = 92 + (systemInfo.safeArea ? (screenHeight - systemInfo.safeArea.bottom) : 0);
     // Estimate header area height: status bar + header + toggle + info banner
     const headerAreaHeight = statusBarHeight + 64 + 72 + 56;
     const scrollHeight = screenHeight - headerAreaHeight;
@@ -113,19 +102,25 @@ Page({
     this.setData({ activeView: view });
   },
 
-  // Date Selection
-  selectDate: function (e) {
-    const date = e.currentTarget.dataset.date;
-    if (date === 'pick') {
-      this.pickCustomDate();
-      return;
-    }
-    this.setData({ selectedDate: date });
+  // Day Selection
+  selectDay: function (e) {
+    const id = e.currentTarget.dataset.id;
+    const weekDays = this.data.weekDays.map(function (day) {
+      return {
+        id: day.id,
+        day: day.day,
+        date: day.date,
+        active: day.id === id
+      };
+    });
+    this.setData({ weekDays: weekDays });
   },
 
-  pickCustomDate: function () {
-    this.setData({ selectedDate: 'pick' });
-    // In a real app, open a date picker here
+  editDays: function () {
+    wx.showToast({
+      title: 'Edit Days',
+      icon: 'none'
+    });
   },
 
   // Delivery
@@ -191,11 +186,8 @@ Page({
     this.setData({ scheduleEnabled: e.detail.value });
   },
 
-  scheduleOrder: function () {
-    wx.showToast({
-      title: 'Order Scheduled',
-      icon: 'success'
-    });
+  planSchedule: function () {
+    wx.navigateTo({ url: '/pages/confirmation/confirmation' });
   },
 
   // Add-ons
@@ -205,16 +197,6 @@ Page({
       title: 'Add-on Added',
       icon: 'success'
     });
-  },
-
-  // Other Meals
-  viewOffers: function () {
-    wx.navigateTo({ url: '/pages/offers/offers' });
-  },
-
-  selectOtherMeal: function (e) {
-    const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '/pages/meal-detail/meal-detail?id=' + id });
   },
 
   // Payment
