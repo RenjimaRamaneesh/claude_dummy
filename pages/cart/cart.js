@@ -4,8 +4,16 @@ Page({
     statusBarHeight: 44,
     scrollHeight: 0,
     activeView: 'day',
-    selectedDate: 'today',
-    scheduleEnabled: false,
+    scheduleEnabled: true,
+    dateRangeLabel: 'Mon,13 Jan - Fri,17 Jan',
+
+    weekDays: [
+      { id: 1, day: 'MON', date: '13', active: true, selected: true },
+      { id: 2, day: 'TUE', date: '14', active: false, selected: true },
+      { id: 3, day: 'WED', date: '15', active: false, selected: true },
+      { id: 4, day: 'THU', date: '16', active: false, selected: true },
+      { id: 5, day: 'FRI', date: '17', active: false, selected: true }
+    ],
 
     mealItems: [
       {
@@ -13,7 +21,7 @@ Page({
         date: 'Mon 13',
         mealType: 'Lunch',
         showTimeTag: true,
-        timeSlot: '12:00 to 1:00 PM',
+        timeSlot: '1:00 to 2:00 PM',
         name: 'Chicken Keema Rice',
         vendor: 'FitFuel Kitchen',
         rating: 4.6,
@@ -113,19 +121,23 @@ Page({
     this.setData({ activeView: view });
   },
 
-  // Date Selection
-  selectDate: function (e) {
-    const date = e.currentTarget.dataset.date;
-    if (date === 'pick') {
-      this.pickCustomDate();
-      return;
-    }
-    this.setData({ selectedDate: date });
+  // Day Selection
+  selectDay: function (e) {
+    const id = e.currentTarget.dataset.id;
+    const weekDays = this.data.weekDays.map(function (day) {
+      if (day.id === id) {
+        day.selected = !day.selected;
+      }
+      return day;
+    });
+    this.setData({ weekDays: weekDays });
   },
 
-  pickCustomDate: function () {
-    this.setData({ selectedDate: 'pick' });
-    // In a real app, open a date picker here
+  editDays: function () {
+    wx.showToast({
+      title: 'Edit Days',
+      icon: 'none'
+    });
   },
 
   // Delivery
@@ -191,11 +203,8 @@ Page({
     this.setData({ scheduleEnabled: e.detail.value });
   },
 
-  scheduleOrder: function () {
-    wx.showToast({
-      title: 'Order Scheduled',
-      icon: 'success'
-    });
+  planSchedule: function () {
+    wx.navigateTo({ url: '/pages/confirmation/confirmation' });
   },
 
   // Add-ons

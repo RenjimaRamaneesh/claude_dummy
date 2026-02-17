@@ -182,27 +182,17 @@
     <!-- Schedule Your Order Section -->
     <view class="schedule-section">
       <view class="schedule-header">
-        <text class="schedule-title">Schedule Your Order</text>
+        <text class="schedule-title">Schedule Your Order for Lunch</text>
         <text class="schedule-subtitle">Add More, Save More!</text>
       </view>
 
-      <!-- Date Pills -->
-      <view class="date-pills">
-        <view class="date-pill {{selectedDate === 'today' ? 'active' : ''}}" bindtap="selectDate" data-date="today">
-          <text>Today</text>
-        </view>
-        <view class="date-pill {{selectedDate === 'tomorrow' ? 'active' : ''}}" bindtap="selectDate" data-date="tomorrow">
-          <text>Tomorrow</text>
-        </view>
-        <view class="date-pill {{selectedDate === 'pick' ? 'active' : ''}}" bindtap="selectDate" data-date="pick">
-          <text>Pick Date</text>
-        </view>
+      <!-- Date Range Display -->
+      <view class="date-range-row">
+        <text class="date-range-text">{{dateRangeLabel}}</text>
+        <text class="date-range-hint">select dates to repeat order</text>
       </view>
 
-      <!-- Divider -->
-      <view class="schedule-divider"></view>
-
-      <!-- Schedule Toggle -->
+      <!-- Schedule Banner with Toggle -->
       <view class="schedule-toggle-row">
         <view class="schedule-banner">
           <image class="schedule-banner-img" src="/images/schedule-banner.png" mode="aspectFill" />
@@ -212,18 +202,36 @@
         </view>
       </view>
 
+      <!-- Day Selector Pills -->
+      <view class="day-selector" wx:if="{{scheduleEnabled}}">
+        <block wx:for="{{weekDays}}" wx:key="id">
+          <view class="day-pill {{item.active ? 'active' : ''}} {{item.selected ? 'selected' : ''}}" bindtap="selectDay" data-id="{{item.id}}">
+            <text class="day-pill-label">{{item.day}}</text>
+            <text class="day-pill-date">{{item.date}}</text>
+          </view>
+        </block>
+        <!-- Edit Days Button -->
+        <view class="day-pill edit-days" bindtap="editDays">
+          <image class="edit-days-icon" src="/images/edit.svg" mode="aspectFit" />
+          <text class="edit-days-text">Edit\nDays</text>
+        </view>
+      </view>
+
+      <!-- Divider -->
+      <view class="schedule-divider" wx:if="{{scheduleEnabled}}"></view>
+
       <!-- Time Dropdown -->
       <view class="time-dropdown" wx:if="{{scheduleEnabled}}">
         <image class="time-icon" src="/images/clock.svg" mode="aspectFit" />
-        <text class="time-dropdown-text">12:00 to 1:00 PM</text>
+        <text class="time-dropdown-text">1:00 to 2:00 PM</text>
         <view class="time-dropdown-icon">
           <text class="dropdown-arrow">&#x25BC;</text>
         </view>
       </view>
 
-      <!-- Schedule Button -->
-      <view class="schedule-btn" bindtap="scheduleOrder">
-        <text class="schedule-btn-text">Schedule</text>
+      <!-- Plan Button -->
+      <view class="schedule-btn" bindtap="planSchedule">
+        <text class="schedule-btn-text">Plan</text>
       </view>
     </view>
 
