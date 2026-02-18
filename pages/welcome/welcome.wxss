@@ -1,0 +1,388 @@
+/* pages/welcome/welcome.wxss */
+
+/* ========== Page Container ========== */
+.welcome-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #FFFFFF;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== Shade Gradient at Top ========== */
+.shade {
+  position: absolute;
+  width: 100%;
+  height: 200rpx;
+  left: 0;
+  top: 0;
+  background: linear-gradient(180deg, #90CA14 0%, #FFFFFF 100%);
+  border-radius: 0 0 40rpx 40rpx;
+  z-index: 0;
+}
+
+/* ========== Status Bar ========== */
+.status-bar {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Main Title Section ========== */
+.main-title {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx 32rpx 10rpx;
+}
+
+.egg-icon {
+  width: 120rpx;
+  height: 150rpx;
+  margin-right: 16rpx;
+}
+
+.title-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-line {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 40rpx;
+  line-height: 56rpx;
+  color: #4E4E4E;
+}
+
+.app-name {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 40rpx;
+  line-height: 56rpx;
+  color: #4E4E4E;
+}
+
+/* ========== Video Section ========== */
+.video-section {
+  position: relative;
+  z-index: 1;
+  padding: 20rpx 40rpx;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 420rpx;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), linear-gradient(135deg, #A8D060 0%, #7CB342 50%, #558B2F 100%);
+  box-shadow: 4rpx 4rpx 40rpx 4rpx rgba(0, 0, 0, 0.25);
+  border-radius: 32rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 32rpx;
+}
+
+.play-button {
+  width: 96rpx;
+  height: 96rpx;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0rpx 0rpx 100rpx rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(30rpx);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.play-triangle {
+  width: 0;
+  height: 0;
+  border-left: 28rpx solid #FFFFFF;
+  border-top: 18rpx solid transparent;
+  border-bottom: 18rpx solid transparent;
+  margin-left: 8rpx;
+}
+
+/* ========== Section Text ========== */
+.section-text {
+  position: relative;
+  z-index: 1;
+  padding: 16rpx 40rpx 10rpx;
+}
+
+.section-question {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  color: #1E1E1E;
+  margin-bottom: 4rpx;
+}
+
+.section-subtitle {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  color: #6A6A6A;
+}
+
+/* ========== Scrollable Cards ========== */
+.cards-scroll {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  white-space: nowrap;
+  padding: 20rpx 0;
+}
+
+.cards-wrapper {
+  display: inline-flex;
+  padding: 20rpx 40rpx;
+}
+
+.info-card {
+  display: inline-block;
+  width: 580rpx;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 40rpx 4rpx rgba(0, 0, 0, 0.12);
+  border-radius: 32rpx;
+  padding: 32rpx;
+  margin-right: 30rpx;
+  white-space: normal;
+  vertical-align: top;
+}
+
+.info-card:last-child {
+  margin-right: 40rpx;
+}
+
+/* ========== Card Header ========== */
+.card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.card-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 12rpx;
+}
+
+.card-title {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 40rpx;
+  line-height: 44rpx;
+  color: #1E1E1E;
+}
+
+/* ========== Features List ========== */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.feature-text {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 28rpx;
+  line-height: 34rpx;
+  color: #444444;
+  flex: 1;
+}
+
+/* ========== Check Circle Icon (How It Works) ========== */
+.check-circle-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+  margin-top: 2rpx;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.check-circle-ring {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  border: 3rpx solid #90CA14;
+  box-sizing: border-box;
+}
+
+.check-circle-tick {
+  position: absolute;
+  width: 14rpx;
+  height: 8rpx;
+  border-bottom: 3rpx solid #90CA14;
+  border-left: 3rpx solid #90CA14;
+  transform: rotate(-45deg);
+  top: 9rpx;
+  left: 7rpx;
+}
+
+/* ========== Heart Icon (Varieties) ========== */
+.heart-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+  margin-top: 2rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-shape {
+  width: 18rpx;
+  height: 16rpx;
+  position: relative;
+}
+
+.heart-shape::before,
+.heart-shape::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 10rpx;
+  height: 16rpx;
+  border-radius: 10rpx 10rpx 0 0;
+  background: transparent;
+  border: 3rpx solid #D93B3B;
+}
+
+.heart-shape::before {
+  left: 0;
+  transform: rotate(-45deg);
+  transform-origin: bottom left;
+}
+
+.heart-shape::after {
+  right: 0;
+  transform: rotate(45deg);
+  transform-origin: bottom right;
+}
+
+/* ========== Badge Icon (Varieties Alt) ========== */
+.badge-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+  margin-top: 2rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-shape {
+  width: 24rpx;
+  height: 24rpx;
+  background: #90CA14;
+  clip-path: polygon(50% 0%, 65% 10%, 80% 0%, 85% 15%, 100% 20%, 90% 35%, 100% 50%, 90% 65%, 100% 80%, 85% 85%, 80% 100%, 65% 90%, 50% 100%, 35% 90%, 20% 100%, 15% 85%, 0% 80%, 10% 65%, 0% 50%, 10% 35%, 0% 20%, 15% 15%, 20% 0%, 35% 10%);
+  position: relative;
+}
+
+.badge-shape::after {
+  content: '';
+  position: absolute;
+  width: 10rpx;
+  height: 6rpx;
+  border-bottom: 3rpx solid #FFFFFF;
+  border-left: 3rpx solid #FFFFFF;
+  transform: rotate(-45deg);
+  top: 7rpx;
+  left: 6rpx;
+}
+
+/* ========== Pagination Dots ========== */
+.pagination-dots {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16rpx;
+  padding: 4rpx 0 16rpx;
+}
+
+.dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background: #CCE19F;
+  transition: background 0.3s ease;
+}
+
+.dot.active {
+  background: #90CA14;
+}
+
+/* ========== Get Started Button ========== */
+.button-container {
+  position: relative;
+  z-index: 1;
+  padding: 10rpx 40rpx 20rpx;
+  margin-top: auto;
+}
+
+.get-started-btn {
+  width: 100%;
+  height: 88rpx;
+  background: #90CA14;
+  box-shadow: 4rpx 4rpx 40rpx rgba(0, 0, 0, 0.25);
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-text {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 44rpx;
+  color: #1E1E1E;
+}
+
+/* ========== Home Indicator ========== */
+.home-indicator {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16rpx;
+  padding-top: 8rpx;
+}
+
+.indicator-bar {
+  width: 288rpx;
+  height: 10rpx;
+  background: #000000;
+  border-radius: 200rpx;
+}

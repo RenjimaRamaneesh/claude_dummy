@@ -1,0 +1,81 @@
+<!-- pages/welcome/welcome.wxml -->
+<view class="welcome-page">
+  <!-- Shade Gradient at Top -->
+  <view class="shade"></view>
+
+  <!-- Status Bar Spacer -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- Main Title with Egg Icon -->
+  <view class="main-title">
+    <image class="egg-icon" src="/images/egg-icon.svg" mode="aspectFit"></image>
+    <view class="title-text">
+      <text class="welcome-line">Welcome to</text>
+      <text class="app-name">Meal Planner</text>
+    </view>
+  </view>
+
+  <!-- Intro Video Section -->
+  <view class="video-section">
+    <view class="video-thumbnail">
+      <view class="video-overlay"></view>
+      <view class="play-button">
+        <view class="play-triangle"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Section Text -->
+  <view class="section-text">
+    <text class="section-question">Why people love Meal Planner ?</text>
+    <text class="section-subtitle">Stress-free meals, your way</text>
+  </view>
+
+  <!-- Scrollable Cards -->
+  <scroll-view class="cards-scroll" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}" bindscroll="onCardScroll">
+    <view class="cards-wrapper">
+      <view wx:for="{{cards}}" wx:key="type" class="info-card">
+        <!-- Card Header -->
+        <view class="card-header">
+          <image wx:if="{{item.icon === 'target'}}" class="card-icon" src="/images/target-icon.svg" mode="aspectFit"></image>
+          <image wx:if="{{item.icon === 'food'}}" class="card-icon" src="/images/food-icon.svg" mode="aspectFit"></image>
+          <text class="card-title">{{item.title}}</text>
+        </view>
+
+        <!-- Feature Points -->
+        <view class="features-list">
+          <view wx:for="{{item.items}}" wx:for-item="feature" wx:key="*this" class="feature-item">
+            <view wx:if="{{item.type === 'how-it-works'}}" class="check-circle-icon">
+              <view class="check-circle-ring"></view>
+              <view class="check-circle-tick"></view>
+            </view>
+            <view wx:if="{{item.type === 'varieties'}}" class="heart-icon">
+              <view class="heart-shape"></view>
+            </view>
+            <view wx:if="{{item.type === 'varieties-alt'}}" class="badge-icon">
+              <view class="badge-shape"></view>
+            </view>
+            <text class="feature-text">{{feature}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- Pagination Dots -->
+  <view class="pagination-dots">
+    <view wx:for="{{cards}}" wx:key="type" class="dot {{currentDot === index ? 'active' : ''}}"></view>
+  </view>
+
+  <!-- Get Started Button -->
+  <view class="button-container">
+    <view class="get-started-btn" bindtap="handleGetStarted">
+      <text class="btn-text">Get Started</text>
+    </view>
+  </view>
+
+  <!-- Home Indicator -->
+  <view class="home-indicator">
+    <view class="indicator-bar"></view>
+  </view>
+</view>

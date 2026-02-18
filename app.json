@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/welcome/welcome",
     "pages/cart/cart",
     "pages/cart-multi/cart-multi",
     "pages/confirmation/confirmation"
