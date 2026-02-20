@@ -19,20 +19,14 @@
         <text class="back-arrow">\u2039</text>
       </view>
       <view class="notif-btn">
-        <text class="notif-icon">\u1F514</text>
+        <image src="/images/bell.svg" class="notif-icon-img" wx:if="{{true}}" />
         <view class="notif-dot" wx:if="{{hasNotification}}"></view>
       </view>
     </view>
-
-    <!-- Status Bar Spacer -->
-    <view class="status-bar-spacer"></view>
   </view>
 
-  <!-- ===== SCROLLABLE CONTENT ===== -->
-  <scroll-view class="content-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
-
-    <!-- Green Gradient Shade -->
-    <view class="shade"></view>
+  <!-- ===== CONTENT AREA (uses native page scroll) ===== -->
+  <view class="content-area">
 
     <!-- Meal Title & Description -->
     <view class="meal-info">
@@ -111,7 +105,7 @@
               <text class="hc-subtitle">See how this meal fits your current plan</text>
             </view>
             <view class="compare-icon-btn">
-              <text class="compare-icon">\u2637</text>
+              <image src="/images/balance.svg" class="compare-icon-img" />
             </view>
           </view>
 
@@ -160,7 +154,7 @@
               <text class="hc-subtitle">{{mealData.name}}</text>
             </view>
             <view class="compare-icon-btn">
-              <text class="compare-icon">\u25CE</text>
+              <image src="/images/balance.svg" class="compare-icon-img" />
             </view>
           </view>
 
@@ -212,16 +206,16 @@
       </view>
     </view>
 
-    <!-- Bottom spacer -->
+    <!-- Bottom spacer for fixed nav -->
     <view class="scroll-bottom-spacer"></view>
-  </scroll-view>
+  </view>
 
   <!-- ===== BOTTOM NAV BAR ===== -->
   <view class="bottom-nav {{itemAdded ? 'carted' : ''}}">
     <!-- Item Added State -->
     <view class="added-row" wx:if="{{itemAdded}}">
       <view class="added-left">
-        <text class="cart-filled-icon">\u1F6D2</text>
+        <image src="/images/bowl-food.svg" class="cart-filled-img" />
         <view class="added-info">
           <text class="added-label">Item Added</text>
           <text class="added-link" catchtap="showCustomizeSheet">Customize More</text>
@@ -229,7 +223,7 @@
       </view>
       <view class="added-divider-v"></view>
       <view class="recycle-icon-wrap">
-        <text class="recycle-icon">\u2191</text>
+        <image src="/images/delete.svg" class="recycle-img" />
       </view>
     </view>
 
@@ -242,215 +236,212 @@
   </view>
 
   <!-- ===== RESTAURANT BOTTOM SHEET ===== -->
-  <view class="overlay {{showRestaurant ? 'show' : ''}}" bindtap="hideRestaurantSheet">
-    <view class="sheet restaurant-sheet {{showRestaurant ? 'show' : ''}}" catchtap="stopPropagation">
-      <!-- Restaurant Image -->
-      <view class="rest-img-wrap">
-        <image src="{{restaurantData.image}}" class="rest-img" mode="aspectFill" />
-        <view class="rest-img-overlay"></view>
-        <view class="close-btn" bindtap="hideRestaurantSheet">
-          <text class="close-x">\u00D7</text>
+  <view class="overlay {{showRestaurant ? 'show' : ''}}" bindtap="hideRestaurantSheet"></view>
+  <view class="sheet restaurant-sheet {{showRestaurant ? 'show' : ''}}" catchtap="stopPropagation">
+    <!-- Restaurant Image -->
+    <view class="rest-img-wrap">
+      <image src="{{restaurantData.image}}" class="rest-img" mode="aspectFill" />
+      <view class="rest-img-overlay"></view>
+      <view class="close-btn" bindtap="hideRestaurantSheet">
+        <text class="close-x">\u00D7</text>
+      </view>
+    </view>
+
+    <!-- Restaurant Scrollable Content -->
+    <scroll-view class="rest-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{restScrollHeight}}px;">
+      <!-- Name + Category -->
+      <view class="rest-main-info">
+        <text class="rest-name-lg">{{restaurantData.name}}</text>
+        <text class="rest-cat">{{restaurantData.category}}</text>
+      </view>
+
+      <!-- Rating & Location -->
+      <view class="rest-stats">
+        <view class="rest-stat-row">
+          <text class="stat-star">\u2605</text>
+          <text class="stat-text">{{restaurantData.rating}}</text>
+          <text class="stat-text-light">( {{restaurantData.reviewCount}} Reviews )</text>
+        </view>
+        <view class="rest-stat-row">
+          <image src="/images/location.svg" class="stat-loc-icon" />
+          <text class="stat-text">{{restaurantData.location}} ({{restaurantData.distance}})</text>
         </view>
       </view>
 
-      <!-- Restaurant Scrollable Content -->
-      <scroll-view class="rest-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
-        <!-- Name + Category -->
-        <view class="rest-main-info">
-          <text class="rest-name-lg">{{restaurantData.name}}</text>
-          <text class="rest-cat">{{restaurantData.category}}</text>
+      <!-- Description -->
+      <text class="rest-desc">{{restaurantData.description}}</text>
+
+      <!-- Food Standards -->
+      <view class="standards-section">
+        <view class="section-title-row">
+          <image src="/images/tick-circle.svg" class="section-icon" />
+          <text class="section-title-text">Food Standards</text>
         </view>
-
-        <!-- Rating & Location -->
-        <view class="rest-stats">
-          <view class="rest-stat-row">
-            <text class="stat-star">\u2605</text>
-            <text class="stat-text">{{restaurantData.rating}}</text>
-            <text class="stat-text-light">( {{restaurantData.reviewCount}} Reviews )</text>
-          </view>
-          <view class="rest-stat-row">
-            <image src="/images/location.svg" class="stat-loc-icon" />
-            <text class="stat-text">{{restaurantData.location}} ({{restaurantData.distance}})</text>
-          </view>
-        </view>
-
-        <!-- Description -->
-        <text class="rest-desc">{{restaurantData.description}}</text>
-
-        <!-- Food Standards -->
-        <view class="standards-section">
-          <view class="section-title-row">
-            <image src="/images/tick-circle.svg" class="section-icon" />
-            <text class="section-title-text">Food Standards</text>
-          </view>
-          <scroll-view class="standards-scroll" scroll-x="true" enhanced="true" show-scrollbar="{{false}}">
-            <view class="standards-items">
-              <view class="standard-card" wx:for="{{restaurantData.standards}}" wx:key="index">
-                <text class="standard-emoji">{{index === 0 ? '\u1F331' : index === 1 ? '\u1F4E6' : index === 2 ? '\u1F525' : '\u2705'}}</text>
-                <text class="standard-label">{{item.text}}</text>
-              </view>
+        <scroll-view class="standards-scroll" scroll-x="true" enhanced="true" show-scrollbar="{{false}}">
+          <view class="standards-items">
+            <view class="standard-card" wx:for="{{restaurantData.standards}}" wx:key="index">
+              <image src="{{item.icon}}" class="standard-card-icon" wx:if="{{item.icon}}" />
+              <text class="standard-label">{{item.text}}</text>
             </view>
-          </scroll-view>
-        </view>
-
-        <!-- Today's Specials -->
-        <view class="specials-section">
-          <view class="section-title-row">
-            <text class="bowl-icon">\u1F35C</text>
-            <text class="section-title-text">Today's Specials</text>
           </view>
-          <scroll-view class="specials-scroll" scroll-x="true" enhanced="true" show-scrollbar="{{false}}">
-            <view class="specials-items">
-              <view class="special-card" wx:for="{{restaurantData.specials}}" wx:key="index">
-                <view class="special-img-wrap">
-                  <image src="{{item.image}}" class="special-img" mode="aspectFill" />
-                  <view class="special-img-gradient"></view>
-                  <!-- Price -->
-                  <view class="special-price">
-                    <text class="sp-currency">AED</text>
-                    <text class="sp-amount">{{item.price}}</text>
+        </scroll-view>
+      </view>
+
+      <!-- Today's Specials -->
+      <view class="specials-section">
+        <view class="section-title-row">
+          <image src="/images/bowl-food.svg" class="section-icon" />
+          <text class="section-title-text">Today's Specials</text>
+        </view>
+        <scroll-view class="specials-scroll" scroll-x="true" enhanced="true" show-scrollbar="{{false}}">
+          <view class="specials-items">
+            <view class="special-card" wx:for="{{restaurantData.specials}}" wx:key="index">
+              <view class="special-img-wrap">
+                <image src="{{item.image}}" class="special-img" mode="aspectFill" />
+                <view class="special-img-gradient"></view>
+                <!-- Price -->
+                <view class="special-price">
+                  <text class="sp-currency">AED</text>
+                  <text class="sp-amount">{{item.price}}</text>
+                </view>
+                <!-- Bottom Info -->
+                <view class="special-bottom">
+                  <view class="special-tag">
+                    <text class="special-tag-text">{{item.category}}</text>
                   </view>
-                  <!-- Bottom Info -->
-                  <view class="special-bottom">
-                    <view class="special-tag">
-                      <text class="special-tag-text">{{item.category}}</text>
-                    </view>
-                    <text class="special-name">{{item.name}}</text>
-                    <text class="special-sub">{{item.description}}</text>
-                  </view>
+                  <text class="special-name">{{item.name}}</text>
+                  <text class="special-sub">{{item.description}}</text>
                 </view>
               </view>
             </view>
-          </scroll-view>
-        </view>
+          </view>
+        </scroll-view>
+      </view>
 
-        <view style="height: 60rpx;"></view>
-      </scroll-view>
-    </view>
+      <view style="height: 60rpx;"></view>
+    </scroll-view>
   </view>
 
   <!-- ===== CUSTOMIZE BOTTOM SHEET ===== -->
-  <view class="overlay {{showCustomize ? 'show' : ''}}" bindtap="hideCustomizeSheet">
-    <view class="sheet customize-sheet {{showCustomize ? 'show' : ''}}" catchtap="stopPropagation">
+  <view class="overlay {{showCustomize ? 'show' : ''}}" bindtap="hideCustomizeSheet"></view>
+  <view class="sheet customize-sheet {{showCustomize ? 'show' : ''}}" catchtap="stopPropagation">
+    <!-- Gradient header area includes handle -->
+    <view class="cust-header">
       <view class="sheet-handle-bar">
         <view class="sheet-handle"></view>
       </view>
+      <text class="cust-title">Customize your meal</text>
+      <text class="cust-sub">Adjust the base, sides, and drinks to match your taste & goals</text>
+    </view>
 
-      <!-- Customize Header -->
-      <view class="cust-header">
-        <text class="cust-title">Customize your meal</text>
-        <text class="cust-sub">Adjust the base, sides, and drinks to match your taste & goals</text>
+    <!-- Scrollable Options -->
+    <scroll-view class="cust-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{custScrollHeight}}px;">
+
+      <!-- Choose Your Base -->
+      <view class="cust-card bases-card">
+        <view class="cust-section-hdr">
+          <text class="cust-section-title">Choose Your Base</text>
+          <view class="badge-mandatory">
+            <text>Mandatory</text>
+          </view>
+        </view>
+        <text class="cust-section-desc">This forms the foundation of your meal</text>
+
+        <view class="options-list">
+          <view
+            class="opt-row {{selectedBase === item.id ? 'opt-selected' : ''}}"
+            wx:for="{{baseOptions}}"
+            wx:key="id"
+            bindtap="selectBase"
+            data-id="{{item.id}}"
+          >
+            <view class="opt-indicator {{selectedBase === item.id ? (item.isDefault ? 'indicator-red' : 'indicator-green') : ''}}"></view>
+            <view class="opt-info">
+              <text class="opt-name">{{item.name}}</text>
+              <text class="opt-desc">{{item.description}}</text>
+            </view>
+            <view class="radio-outer {{selectedBase === item.id ? 'radio-active' : ''}}">
+              <view class="radio-inner" wx:if="{{selectedBase === item.id}}"></view>
+            </view>
+          </view>
+        </view>
       </view>
 
-      <!-- Scrollable Options -->
-      <scroll-view class="cust-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
-
-        <!-- Choose Your Base -->
-        <view class="cust-card bases-card">
-          <view class="cust-section-hdr">
-            <text class="cust-section-title">Choose Your Base</text>
-            <view class="badge-mandatory">
-              <text>Mandatory</text>
-            </view>
+      <!-- Add Sides -->
+      <view class="cust-card bases-card">
+        <view class="cust-section-hdr">
+          <text class="cust-section-title">Add Sides</text>
+          <view class="badge-optional">
+            <text>Optional</text>
           </view>
-          <text class="cust-section-desc">This forms the foundation of your meal</text>
+        </view>
+        <text class="cust-section-desc">Boost protein or add balance to your meal</text>
 
-          <view class="options-list">
-            <view
-              class="opt-row {{selectedBase === item.id ? 'opt-selected' : ''}}"
-              wx:for="{{baseOptions}}"
-              wx:key="id"
-              bindtap="selectBase"
-              data-id="{{item.id}}"
-            >
-              <view class="opt-indicator {{selectedBase === item.id ? (item.isDefault ? 'indicator-red' : 'indicator-green') : ''}}"></view>
-              <view class="opt-info">
+        <view class="options-list">
+          <view
+            class="opt-row {{item.selected ? 'opt-selected' : ''}}"
+            wx:for="{{sidesOptions}}"
+            wx:key="id"
+            bindtap="toggleSide"
+            data-id="{{item.id}}"
+          >
+            <view class="opt-indicator {{item.selected ? 'indicator-green' : ''}}"></view>
+            <view class="opt-info">
+              <view class="opt-name-row">
                 <text class="opt-name">{{item.name}}</text>
-                <text class="opt-desc">{{item.description}}</text>
+                <image wx:if="{{item.recommended}}" src="/images/tick-circle.svg" class="recommended-icon" />
               </view>
-              <view class="radio-outer {{selectedBase === item.id ? 'radio-active' : ''}}">
-                <view class="radio-inner" wx:if="{{selectedBase === item.id}}"></view>
-              </view>
+              <text class="opt-desc">{{item.description}}</text>
+            </view>
+            <view class="checkbox-outer {{item.selected ? 'cb-active' : ''}}">
+              <text class="cb-tick" wx:if="{{item.selected}}">\u2713</text>
             </view>
           </view>
         </view>
-
-        <!-- Add Sides -->
-        <view class="cust-card">
-          <view class="cust-section-hdr">
-            <text class="cust-section-title">Add Sides</text>
-            <view class="badge-optional">
-              <text>Optional</text>
-            </view>
-          </view>
-          <text class="cust-section-desc">Boost protein or add balance to your meal</text>
-
-          <view class="options-list">
-            <view
-              class="opt-row {{item.selected ? 'opt-selected' : ''}}"
-              wx:for="{{sidesOptions}}"
-              wx:key="id"
-              bindtap="toggleSide"
-              data-id="{{item.id}}"
-            >
-              <view class="opt-indicator {{item.selected ? 'indicator-green' : ''}}"></view>
-              <view class="opt-info">
-                <view class="opt-name-row">
-                  <text class="opt-name">{{item.name}}</text>
-                  <image wx:if="{{item.recommended}}" src="/images/tick-circle.svg" class="recommended-icon" />
-                </view>
-                <text class="opt-desc">{{item.description}}</text>
-              </view>
-              <view class="checkbox-outer {{item.selected ? 'cb-active' : ''}}">
-                <text class="cb-tick" wx:if="{{item.selected}}">\u2713</text>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <!-- Recommended Drinks -->
-        <view class="cust-card">
-          <view class="cust-section-hdr">
-            <text class="cust-section-title">Recommended Drinks</text>
-          </view>
-          <text class="cust-section-desc">Complements your meal & improves digestion</text>
-
-          <view class="options-list">
-            <view
-              class="opt-row {{item.selected ? 'opt-selected' : ''}}"
-              wx:for="{{drinksOptions}}"
-              wx:key="id"
-              bindtap="toggleDrink"
-              data-id="{{item.id}}"
-            >
-              <view class="opt-indicator {{item.selected ? 'indicator-green' : ''}}"></view>
-              <view class="opt-info">
-                <text class="opt-name">{{item.name}}</text>
-                <text class="opt-desc">{{item.description}}</text>
-              </view>
-              <view class="checkbox-outer {{item.selected ? 'cb-active' : ''}}">
-                <text class="cb-tick" wx:if="{{item.selected}}">\u2713</text>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <view style="height: 40rpx;"></view>
-      </scroll-view>
-
-      <!-- Quantity + Done Footer -->
-      <view class="cust-footer">
-        <view class="qty-selector">
-          <view class="qty-btn" bindtap="decreaseQuantity">
-            <text>\u2212</text>
-          </view>
-          <text class="qty-num">{{quantity}}</text>
-          <view class="qty-btn" bindtap="increaseQuantity">
-            <text>+</text>
-          </view>
-        </view>
-        <button class="done-btn" bindtap="confirmCustomization">Done</button>
       </view>
+
+      <!-- Recommended Drinks -->
+      <view class="cust-card bases-card">
+        <view class="cust-section-hdr">
+          <text class="cust-section-title">Recommended Drinks</text>
+        </view>
+        <text class="cust-section-desc">Complements your meal & improves digestion</text>
+
+        <view class="options-list">
+          <view
+            class="opt-row {{item.selected ? 'opt-selected' : ''}}"
+            wx:for="{{drinksOptions}}"
+            wx:key="id"
+            bindtap="toggleDrink"
+            data-id="{{item.id}}"
+          >
+            <view class="opt-indicator {{item.selected ? 'indicator-green' : ''}}"></view>
+            <view class="opt-info">
+              <text class="opt-name">{{item.name}}</text>
+              <text class="opt-desc">{{item.description}}</text>
+            </view>
+            <view class="checkbox-outer {{item.selected ? 'cb-active' : ''}}">
+              <text class="cb-tick" wx:if="{{item.selected}}">\u2713</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view style="height: 40rpx;"></view>
+    </scroll-view>
+
+    <!-- Quantity + Done Footer -->
+    <view class="cust-footer">
+      <view class="qty-selector">
+        <view class="qty-btn" bindtap="decreaseQuantity">
+          <text>\u2212</text>
+        </view>
+        <text class="qty-num">{{quantity}}</text>
+        <view class="qty-btn" bindtap="increaseQuantity">
+          <text>+</text>
+        </view>
+      </view>
+      <button class="done-btn" bindtap="confirmCustomization">Done</button>
     </view>
   </view>
 

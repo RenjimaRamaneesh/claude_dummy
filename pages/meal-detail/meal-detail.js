@@ -28,10 +28,10 @@ Page({
       image: '/images/food-placeholder.png',
       description: 'FitFuel Kitchen offers healthy, gym-friendly meals focused on clean eating and fitness nutrition. Specializes in high-protein options like grilled chicken, fresh salads, and balanced bowls for active lifestyles.',
       standards: [
-        { text: 'Freshly Prepared Daily' },
-        { text: 'Sealed Packaging' },
-        { text: 'Hot Meals, Delivered Fresh' },
-        { text: 'FSSAI Certified Kitchen.' }
+        { text: 'Freshly Prepared Daily', icon: '/images/sun.svg' },
+        { text: 'Sealed Packaging', icon: '/images/tick-circle.svg' },
+        { text: 'Hot Meals, Delivered Fresh', icon: '/images/fire.svg' },
+        { text: 'FSSAI Certified Kitchen.', icon: '/images/tick-circle.svg' }
       ],
       specials: [
         {
@@ -129,13 +129,41 @@ Page({
     itemAdded: false,
     hasNotification: true,
     selectedBase: 'basmati',
-    quantity: 1
+    quantity: 1,
+
+    // Dynamic scroll heights (px)
+    restScrollHeight: 400,
+    custScrollHeight: 400
   },
 
-  onLoad: function (options) {
+  onLoad: function () {
+    this.calculateScrollHeights();
+    var that = this;
     setTimeout(function () {
-      this.drawNutritionChart();
-    }.bind(this), 300);
+      that.drawNutritionChart();
+    }, 300);
+  },
+
+  calculateScrollHeights: function () {
+    var systemInfo = wx.getSystemInfoSync();
+    var windowHeight = systemInfo.windowHeight;
+    var rpxToPx = systemInfo.windowWidth / 750;
+
+    // Restaurant sheet: 85vh minus image height (475rpx)
+    var restSheetMax = windowHeight * 0.85;
+    var restImgHeight = 475 * rpxToPx;
+    var restScrollH = restSheetMax - restImgHeight;
+
+    // Customize sheet: 85vh minus header (~200rpx) minus footer (~120rpx)
+    var custSheetMax = windowHeight * 0.85;
+    var custHeaderHeight = 200 * rpxToPx;
+    var custFooterHeight = 120 * rpxToPx;
+    var custScrollH = custSheetMax - custHeaderHeight - custFooterHeight;
+
+    this.setData({
+      restScrollHeight: Math.floor(restScrollH),
+      custScrollHeight: Math.floor(custScrollH)
+    });
   },
 
   drawNutritionChart: function () {
@@ -163,9 +191,9 @@ Page({
     var scale = canvasPx / 280;
 
     var rings = [
-      { radius: 120 * scale, color: '#54EAE7', bgShadow: 'rgba(84, 234, 231, 0.2)' },
-      { radius: 95 * scale, color: '#FAC58B', bgShadow: 'rgba(250, 197, 139, 0.2)' },
-      { radius: 70 * scale, color: '#F28893', bgShadow: 'rgba(242, 136, 147, 0.2)' }
+      { radius: 120 * scale, color: '#54EAE7' },
+      { radius: 95 * scale, color: '#FAC58B' },
+      { radius: 70 * scale, color: '#F28893' }
     ];
 
     var lineWidth = 22 * scale;
