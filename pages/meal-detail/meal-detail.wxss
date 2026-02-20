@@ -99,9 +99,9 @@ page {
   justify-content: center;
 }
 
-.notif-icon-img {
-  width: 36rpx;
-  height: 36rpx;
+.notif-icon {
+  font-size: 36rpx;
+  color: #FFFFFF;
 }
 
 .notif-dot {

@@ -19,7 +19,7 @@
         <text class="back-arrow">\u2039</text>
       </view>
       <view class="notif-btn">
-        <image src="/images/bell.svg" class="notif-icon-img" wx:if="{{true}}" />
+        <text class="notif-icon">\uD83D\uDD14</text>
         <view class="notif-dot" wx:if="{{hasNotification}}"></view>
       </view>
     </view>
