@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/meal-detail/meal-detail",
     "pages/cart/cart",
     "pages/cart-multi/cart-multi",
     "pages/confirmation/confirmation"

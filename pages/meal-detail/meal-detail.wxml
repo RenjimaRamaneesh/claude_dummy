@@ -1,0 +1,457 @@
+<!-- pages/meal-detail/meal-detail.wxml -->
+<view class="container">
+
+  <!-- ===== HERO IMAGE SECTION ===== -->
+  <view class="hero-section">
+    <image class="hero-image" src="{{mealData.image}}" mode="aspectFill" />
+    <view class="hero-gradient"></view>
+
+    <!-- Non-Veg / Veg Indicator -->
+    <view class="veg-indicator">
+      <view class="veg-box">
+        <view class="veg-dot {{mealData.isVeg ? 'veg' : 'non-veg'}}"></view>
+      </view>
+    </view>
+
+    <!-- Top Navigation -->
+    <view class="top-nav">
+      <view class="back-btn" bindtap="onBack">
+        <text class="back-arrow">\u2039</text>
+      </view>
+      <view class="notif-btn">
+        <text class="notif-icon">\u1F514</text>
+        <view class="notif-dot" wx:if="{{hasNotification}}"></view>
+      </view>
+    </view>
+
+    <!-- Status Bar Spacer -->
+    <view class="status-bar-spacer"></view>
+  </view>
+
+  <!-- ===== SCROLLABLE CONTENT ===== -->
+  <scroll-view class="content-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+
+    <!-- Green Gradient Shade -->
+    <view class="shade"></view>
+
+    <!-- Meal Title & Description -->
+    <view class="meal-info">
+      <text class="meal-title">{{mealData.name}}</text>
+      <text class="meal-desc">{{mealData.description}}</text>
+    </view>
+
+    <!-- Restaurant Details Row -->
+    <view class="restaurant-row" bindtap="showRestaurantSheet">
+      <text class="rest-by">by {{mealData.restaurant}}</text>
+      <view class="rest-dot"></view>
+      <view class="rest-rating">
+        <text class="star-char">\u2605</text>
+        <text class="rating-val">{{mealData.rating}}</text>
+      </view>
+      <view class="rest-link">
+        <text class="link-text">View restaurant</text>
+        <text class="link-arrow">\u203A</text>
+      </view>
+    </view>
+
+    <!-- Nutrition Values Row + Price -->
+    <view class="nutrition-price-row">
+      <view class="nutrition-values">
+        <!-- Fuel Value -->
+        <view class="nutr-item">
+          <text class="nutr-label fuel-label">Fuel Value</text>
+          <text class="nutr-val fuel-val">{{mealData.calories}} Kcal</text>
+        </view>
+        <view class="nutr-divider"></view>
+        <!-- Protein -->
+        <view class="nutr-item">
+          <text class="nutr-label">Protein</text>
+          <text class="nutr-val">{{mealData.protein}} g</text>
+        </view>
+        <view class="nutr-divider"></view>
+        <!-- Carbs -->
+        <view class="nutr-item">
+          <text class="nutr-label">Carbs</text>
+          <text class="nutr-val">{{mealData.carbs}} g</text>
+        </view>
+        <view class="nutr-divider"></view>
+        <!-- Fat -->
+        <view class="nutr-item">
+          <text class="nutr-label">Fat</text>
+          <text class="nutr-val">{{mealData.fat}} g</text>
+        </view>
+      </view>
+      <!-- Price Badge -->
+      <view class="price-badge">
+        <text class="price-currency">AED</text>
+        <text class="price-amount">{{mealData.price}}</text>
+      </view>
+    </view>
+
+    <!-- Allergens -->
+    <view class="allergens-row">
+      <text class="allergens-title">Allergens</text>
+      <view class="allergen-tags">
+        <view class="allergen-tag" wx:for="{{mealData.allergens}}" wx:key="index">
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== HEALTH CARD (Flip) ===== -->
+    <view class="health-card" bindtap="toggleHealthCard">
+      <view class="card-flipper {{showNutritionTable ? 'flipped' : ''}}">
+
+        <!-- FRONT: Chart View -->
+        <view class="card-face front-face">
+          <!-- Header -->
+          <view class="hc-header">
+            <view class="hc-header-text">
+              <text class="hc-title">Is this healthy for me?</text>
+              <text class="hc-subtitle">See how this meal fits your current plan</text>
+            </view>
+            <view class="compare-icon-btn">
+              <text class="compare-icon">\u2637</text>
+            </view>
+          </view>
+
+          <!-- Chart + Legend -->
+          <view class="chart-legend-row">
+            <view class="chart-container">
+              <canvas canvas-id="nutritionChart" class="nutrition-canvas"></canvas>
+              <view class="chart-center-info">
+                <image src="/images/fire.svg" class="fire-icon" />
+                <text class="center-kcal">{{mealData.calories}}</text>
+                <text class="center-unit">kcal</text>
+              </view>
+            </view>
+            <view class="legend-col">
+              <view class="legend-row">
+                <view class="legend-dot protein-bg"></view>
+                <text class="legend-text">Protein</text>
+              </view>
+              <view class="legend-row">
+                <view class="legend-dot carbs-bg"></view>
+                <text class="legend-text">Carbs</text>
+              </view>
+              <view class="legend-row">
+                <view class="legend-dot fat-bg"></view>
+                <text class="legend-text">Fat</text>
+              </view>
+            </view>
+          </view>
+
+          <!-- Good Choice -->
+          <view class="good-choice-bar">
+            <image src="/images/tick-circle.svg" class="tick-icon" />
+            <view class="gc-text">
+              <text class="gc-title">Good choice for your plan</text>
+              <text class="gc-sub">Aligned with your current BMI and goals</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- BACK: Table View -->
+        <view class="card-face back-face">
+          <!-- Header -->
+          <view class="hc-header">
+            <view class="hc-header-text">
+              <text class="hc-title">Nutrition Comparison</text>
+              <text class="hc-subtitle">{{mealData.name}}</text>
+            </view>
+            <view class="compare-icon-btn">
+              <text class="compare-icon">\u25CE</text>
+            </view>
+          </view>
+
+          <!-- Table -->
+          <view class="nutr-table">
+            <view class="table-hdr">
+              <text class="t-col t-col-label">Fuel Type</text>
+              <text class="t-col t-col-val">Target</text>
+              <text class="t-col t-col-val">Actual</text>
+            </view>
+            <view class="table-line"></view>
+            <view class="table-body-row">
+              <view class="t-col t-col-label fuel-type-cell">
+                <view class="ft-dot protein-bg"></view>
+                <text>Protein</text>
+              </view>
+              <text class="t-col t-col-val">{{nutritionTarget.protein}}g</text>
+              <text class="t-col t-col-val">{{mealData.protein}}g</text>
+            </view>
+            <view class="table-line"></view>
+            <view class="table-body-row">
+              <view class="t-col t-col-label fuel-type-cell">
+                <view class="ft-dot carbs-bg"></view>
+                <text>Carbs</text>
+              </view>
+              <text class="t-col t-col-val">{{nutritionTarget.carbs}}g</text>
+              <text class="t-col t-col-val">{{mealData.carbs}}g</text>
+            </view>
+            <view class="table-line"></view>
+            <view class="table-body-row">
+              <view class="t-col t-col-label fuel-type-cell">
+                <view class="ft-dot fat-bg"></view>
+                <text>Fat</text>
+              </view>
+              <text class="t-col t-col-val">{{nutritionTarget.fat}}g</text>
+              <text class="t-col t-col-val">{{mealData.fat}}g</text>
+            </view>
+          </view>
+
+          <!-- Good Choice -->
+          <view class="good-choice-bar">
+            <image src="/images/tick-circle.svg" class="tick-icon" />
+            <view class="gc-text">
+              <text class="gc-title">Good choice for your plan</text>
+              <text class="gc-sub">Higher carbs than ideal, but balanced with protein</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Bottom spacer -->
+    <view class="scroll-bottom-spacer"></view>
+  </scroll-view>
+
+  <!-- ===== BOTTOM NAV BAR ===== -->
+  <view class="bottom-nav {{itemAdded ? 'carted' : ''}}">
+    <!-- Item Added State -->
+    <view class="added-row" wx:if="{{itemAdded}}">
+      <view class="added-left">
+        <text class="cart-filled-icon">\u1F6D2</text>
+        <view class="added-info">
+          <text class="added-label">Item Added</text>
+          <text class="added-link" catchtap="showCustomizeSheet">Customize More</text>
+        </view>
+      </view>
+      <view class="added-divider-v"></view>
+      <view class="recycle-icon-wrap">
+        <text class="recycle-icon">\u2191</text>
+      </view>
+    </view>
+
+    <view class="bottom-btn-row">
+      <!-- Add To Cart Button -->
+      <button class="add-btn {{itemAdded ? 'carted-btn' : ''}}" bindtap="{{itemAdded ? 'proceedToCart' : 'showCustomizeSheet'}}">
+        {{itemAdded ? 'Add To Cart' : 'Add'}}
+      </button>
+    </view>
+  </view>
+
+  <!-- ===== RESTAURANT BOTTOM SHEET ===== -->
+  <view class="overlay {{showRestaurant ? 'show' : ''}}" bindtap="hideRestaurantSheet">
+    <view class="sheet restaurant-sheet {{showRestaurant ? 'show' : ''}}" catchtap="stopPropagation">
+      <!-- Restaurant Image -->
+      <view class="rest-img-wrap">
+        <image src="{{restaurantData.image}}" class="rest-img" mode="aspectFill" />
+        <view class="rest-img-overlay"></view>
+        <view class="close-btn" bindtap="hideRestaurantSheet">
+          <text class="close-x">\u00D7</text>
+        </view>
+      </view>
+
+      <!-- Restaurant Scrollable Content -->
+      <scroll-view class="rest-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+        <!-- Name + Category -->
+        <view class="rest-main-info">
+          <text class="rest-name-lg">{{restaurantData.name}}</text>
+          <text class="rest-cat">{{restaurantData.category}}</text>
+        </view>
+
+        <!-- Rating & Location -->
+        <view class="rest-stats">
+          <view class="rest-stat-row">
+            <text class="stat-star">\u2605</text>
+            <text class="stat-text">{{restaurantData.rating}}</text>
+            <text class="stat-text-light">( {{restaurantData.reviewCount}} Reviews )</text>
+          </view>
+          <view class="rest-stat-row">
+            <image src="/images/location.svg" class="stat-loc-icon" />
+            <text class="stat-text">{{restaurantData.location}} ({{restaurantData.distance}})</text>
+          </view>
+        </view>
+
+        <!-- Description -->
+        <text class="rest-desc">{{restaurantData.description}}</text>
+
+        <!-- Food Standards -->
+        <view class="standards-section">
+          <view class="section-title-row">
+            <image src="/images/tick-circle.svg" class="section-icon" />
+            <text class="section-title-text">Food Standards</text>
+          </view>
+          <scroll-view class="standards-scroll" scroll-x="true" enhanced="true" show-scrollbar="{{false}}">
+            <view class="standards-items">
+              <view class="standard-card" wx:for="{{restaurantData.standards}}" wx:key="index">
+                <text class="standard-emoji">{{index === 0 ? '\u1F331' : index === 1 ? '\u1F4E6' : index === 2 ? '\u1F525' : '\u2705'}}</text>
+                <text class="standard-label">{{item.text}}</text>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+
+        <!-- Today's Specials -->
+        <view class="specials-section">
+          <view class="section-title-row">
+            <text class="bowl-icon">\u1F35C</text>
+            <text class="section-title-text">Today's Specials</text>
+          </view>
+          <scroll-view class="specials-scroll" scroll-x="true" enhanced="true" show-scrollbar="{{false}}">
+            <view class="specials-items">
+              <view class="special-card" wx:for="{{restaurantData.specials}}" wx:key="index">
+                <view class="special-img-wrap">
+                  <image src="{{item.image}}" class="special-img" mode="aspectFill" />
+                  <view class="special-img-gradient"></view>
+                  <!-- Price -->
+                  <view class="special-price">
+                    <text class="sp-currency">AED</text>
+                    <text class="sp-amount">{{item.price}}</text>
+                  </view>
+                  <!-- Bottom Info -->
+                  <view class="special-bottom">
+                    <view class="special-tag">
+                      <text class="special-tag-text">{{item.category}}</text>
+                    </view>
+                    <text class="special-name">{{item.name}}</text>
+                    <text class="special-sub">{{item.description}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+
+        <view style="height: 60rpx;"></view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- ===== CUSTOMIZE BOTTOM SHEET ===== -->
+  <view class="overlay {{showCustomize ? 'show' : ''}}" bindtap="hideCustomizeSheet">
+    <view class="sheet customize-sheet {{showCustomize ? 'show' : ''}}" catchtap="stopPropagation">
+      <view class="sheet-handle-bar">
+        <view class="sheet-handle"></view>
+      </view>
+
+      <!-- Customize Header -->
+      <view class="cust-header">
+        <text class="cust-title">Customize your meal</text>
+        <text class="cust-sub">Adjust the base, sides, and drinks to match your taste & goals</text>
+      </view>
+
+      <!-- Scrollable Options -->
+      <scroll-view class="cust-scroll" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+
+        <!-- Choose Your Base -->
+        <view class="cust-card bases-card">
+          <view class="cust-section-hdr">
+            <text class="cust-section-title">Choose Your Base</text>
+            <view class="badge-mandatory">
+              <text>Mandatory</text>
+            </view>
+          </view>
+          <text class="cust-section-desc">This forms the foundation of your meal</text>
+
+          <view class="options-list">
+            <view
+              class="opt-row {{selectedBase === item.id ? 'opt-selected' : ''}}"
+              wx:for="{{baseOptions}}"
+              wx:key="id"
+              bindtap="selectBase"
+              data-id="{{item.id}}"
+            >
+              <view class="opt-indicator {{selectedBase === item.id ? (item.isDefault ? 'indicator-red' : 'indicator-green') : ''}}"></view>
+              <view class="opt-info">
+                <text class="opt-name">{{item.name}}</text>
+                <text class="opt-desc">{{item.description}}</text>
+              </view>
+              <view class="radio-outer {{selectedBase === item.id ? 'radio-active' : ''}}">
+                <view class="radio-inner" wx:if="{{selectedBase === item.id}}"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- Add Sides -->
+        <view class="cust-card">
+          <view class="cust-section-hdr">
+            <text class="cust-section-title">Add Sides</text>
+            <view class="badge-optional">
+              <text>Optional</text>
+            </view>
+          </view>
+          <text class="cust-section-desc">Boost protein or add balance to your meal</text>
+
+          <view class="options-list">
+            <view
+              class="opt-row {{item.selected ? 'opt-selected' : ''}}"
+              wx:for="{{sidesOptions}}"
+              wx:key="id"
+              bindtap="toggleSide"
+              data-id="{{item.id}}"
+            >
+              <view class="opt-indicator {{item.selected ? 'indicator-green' : ''}}"></view>
+              <view class="opt-info">
+                <view class="opt-name-row">
+                  <text class="opt-name">{{item.name}}</text>
+                  <image wx:if="{{item.recommended}}" src="/images/tick-circle.svg" class="recommended-icon" />
+                </view>
+                <text class="opt-desc">{{item.description}}</text>
+              </view>
+              <view class="checkbox-outer {{item.selected ? 'cb-active' : ''}}">
+                <text class="cb-tick" wx:if="{{item.selected}}">\u2713</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- Recommended Drinks -->
+        <view class="cust-card">
+          <view class="cust-section-hdr">
+            <text class="cust-section-title">Recommended Drinks</text>
+          </view>
+          <text class="cust-section-desc">Complements your meal & improves digestion</text>
+
+          <view class="options-list">
+            <view
+              class="opt-row {{item.selected ? 'opt-selected' : ''}}"
+              wx:for="{{drinksOptions}}"
+              wx:key="id"
+              bindtap="toggleDrink"
+              data-id="{{item.id}}"
+            >
+              <view class="opt-indicator {{item.selected ? 'indicator-green' : ''}}"></view>
+              <view class="opt-info">
+                <text class="opt-name">{{item.name}}</text>
+                <text class="opt-desc">{{item.description}}</text>
+              </view>
+              <view class="checkbox-outer {{item.selected ? 'cb-active' : ''}}">
+                <text class="cb-tick" wx:if="{{item.selected}}">\u2713</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view style="height: 40rpx;"></view>
+      </scroll-view>
+
+      <!-- Quantity + Done Footer -->
+      <view class="cust-footer">
+        <view class="qty-selector">
+          <view class="qty-btn" bindtap="decreaseQuantity">
+            <text>\u2212</text>
+          </view>
+          <text class="qty-num">{{quantity}}</text>
+          <view class="qty-btn" bindtap="increaseQuantity">
+            <text>+</text>
+          </view>
+        </view>
+        <button class="done-btn" bindtap="confirmCustomization">Done</button>
+      </view>
+    </view>
+  </view>
+
+</view>
