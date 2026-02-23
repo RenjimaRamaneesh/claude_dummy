@@ -28,15 +28,15 @@ Page({
       image: '/images/food-placeholder.png',
       description: 'FitFuel Kitchen offers healthy, gym-friendly meals focused on clean eating and fitness nutrition. Specializes in high-protein options like grilled chicken, fresh salads, and balanced bowls for active lifestyles.',
       standards: [
-        { text: 'Freshly Prepared Daily', icon: '/images/sun.svg' },
-        { text: 'Sealed Packaging', icon: '/images/tick-circle.svg' },
-        { text: 'Hot Meals, Delivered Fresh', icon: '/images/fire.svg' },
-        { text: 'FSSAI Certified Kitchen.', icon: '/images/tick-circle.svg' }
+        { icon: '/images/sun.svg', text: 'Freshly Prepared Daily' },
+        { icon: '/images/tick-circle.svg', text: 'Sealed Packaging' },
+        { icon: '/images/fire.svg', text: 'Hot Meals, Delivered Fresh' },
+        { icon: '/images/tick-circle.svg', text: 'FSSAI Certified Kitchen.' }
       ],
       specials: [
         {
           image: '/images/food-placeholder.png',
-          category: 'Break Fast',
+          category: 'Breakfast',
           price: '12',
           name: 'Veg Wraps',
           description: 'low carb, high fiber'
@@ -50,10 +50,10 @@ Page({
         },
         {
           image: '/images/food-placeholder.png',
-          category: 'Lunch, Dinner',
-          price: '16',
-          name: 'Chicken Fry',
-          description: 'Chicken breast, veggies'
+          category: 'Lunch, D',
+          price: '15',
+          name: 'Chicken Salad',
+          description: 'Chicken breast, greens'
         }
       ]
     },
@@ -69,7 +69,7 @@ Page({
     baseOptions: [
       {
         id: 'basmati',
-        name: 'Basmati Rice (Default)',
+        name: 'Basmati Rice',
         description: 'Light, aromatic & balanced',
         isDefault: true
       },
@@ -80,7 +80,7 @@ Page({
       },
       {
         id: 'cauliflower',
-        name: 'Cauliflower Rice (Low-carb)',
+        name: 'Cauliflower Rice',
         description: 'High fiber \u00b7 Keeps you full longer'
       }
     ],
@@ -136,25 +136,22 @@ Page({
     custScrollHeight: 400
   },
 
-  onLoad: function () {
+  onLoad(options) {
     this.calculateScrollHeights();
-    var that = this;
-    setTimeout(function () {
-      that.drawNutritionChart();
+    setTimeout(() => {
+      this.drawNutritionChart();
     }, 300);
   },
 
-  calculateScrollHeights: function () {
+  calculateScrollHeights() {
     var systemInfo = wx.getSystemInfoSync();
     var windowHeight = systemInfo.windowHeight;
     var rpxToPx = systemInfo.windowWidth / 750;
 
-    // Restaurant sheet: 85vh minus image height (475rpx)
     var restSheetMax = windowHeight * 0.85;
     var restImgHeight = 475 * rpxToPx;
     var restScrollH = restSheetMax - restImgHeight;
 
-    // Customize sheet: 85vh minus header (~200rpx) minus footer (~120rpx)
     var custSheetMax = windowHeight * 0.85;
     var custHeaderHeight = 200 * rpxToPx;
     var custFooterHeight = 120 * rpxToPx;
@@ -166,51 +163,52 @@ Page({
     });
   },
 
-  drawNutritionChart: function () {
-    var systemInfo = wx.getSystemInfoSync();
-    var canvasRpx = 280;
-    var canvasPx = (canvasRpx / 750) * systemInfo.windowWidth;
-    var ctx = wx.createCanvasContext('nutritionChart', this);
+  // Draw nutrition chart as concentric ring segments
+  drawNutritionChart() {
+    const systemInfo = wx.getSystemInfoSync();
+    const canvasRpx = 350;
+    const canvasPx = (canvasRpx / 750) * systemInfo.windowWidth;
+    const ctx = wx.createCanvasContext('nutritionChart', this);
 
-    var centerX = canvasPx / 2;
-    var centerY = canvasPx / 2;
+    const centerX = canvasPx / 2;
+    const centerY = canvasPx / 2;
 
-    var protein = this.data.mealData.protein;
-    var carbs = this.data.mealData.carbs;
-    var fat = this.data.mealData.fat;
-    var total = protein + carbs + fat;
+    const protein = this.data.mealData.protein;
+    const carbs = this.data.mealData.carbs;
+    const fat = this.data.mealData.fat;
+    const total = protein + carbs + fat;
 
-    var proteinPercent = protein / total;
-    var carbsPercent = carbs / total;
-    var fatPercent = fat / total;
+    const proteinPercent = protein / total;
+    const carbsPercent = carbs / total;
+    const fatPercent = fat / total;
 
-    var proteinAngle = proteinPercent * 2 * Math.PI;
-    var carbsAngle = carbsPercent * 2 * Math.PI;
-    var fatAngle = fatPercent * 2 * Math.PI;
+    const proteinAngle = proteinPercent * 2 * Math.PI;
+    const carbsAngle = carbsPercent * 2 * Math.PI;
+    const fatAngle = fatPercent * 2 * Math.PI;
 
-    var scale = canvasPx / 280;
+    const scale = canvasPx / 280;
 
-    var rings = [
-      { radius: 120 * scale, color: '#54EAE7' },
-      { radius: 95 * scale, color: '#FAC58B' },
-      { radius: 70 * scale, color: '#F28893' }
+    const rings = [
+      { radius: 120 * scale, color: '#54EAE7' },  // Outer ring - Protein
+      { radius: 95 * scale, color: '#FAC58B' },    // Middle ring - Carbs
+      { radius: 70 * scale, color: '#F28893' }     // Inner ring - Fat
     ];
 
-    var lineWidth = 22 * scale;
-    var startAngle = -Math.PI / 2;
+    const lineWidth = 22 * scale;
+    const startAngle = -Math.PI / 2;
 
     ctx.setLineCap('round');
 
-    // Draw background circles
-    rings.forEach(function (ring) {
+    // Draw background gray circles
+    rings.forEach(ring => {
       ctx.beginPath();
       ctx.arc(centerX, centerY, ring.radius, 0, 2 * Math.PI);
-      ctx.setStrokeStyle('#EEEEEE');
+      ctx.setStrokeStyle('#e8e8e8');
       ctx.setLineWidth(lineWidth);
       ctx.stroke();
     });
 
-    // Protein segment (outer)
+    // Draw Protein segment (outer ring)
     if (proteinPercent > 0) {
       ctx.beginPath();
       ctx.arc(centerX, centerY, rings[0].radius, startAngle, startAngle + proteinAngle);
@@ -220,7 +218,7 @@ Page({
       ctx.stroke();
     }
 
-    // Carbs segment (middle)
+    // Draw Carbs segment (middle ring)
     if (carbsPercent > 0) {
       ctx.beginPath();
       ctx.arc(centerX, centerY, rings[1].radius, startAngle, startAngle + carbsAngle);
@@ -230,7 +228,7 @@ Page({
       ctx.stroke();
     }
 
-    // Fat segment (inner)
+    // Draw Fat segment (inner ring)
     if (fatPercent > 0) {
       ctx.beginPath();
       ctx.arc(centerX, centerY, rings[2].radius, startAngle, startAngle + fatAngle);
@@ -243,53 +241,53 @@ Page({
     ctx.draw();
   },
 
-  toggleHealthCard: function () {
+  toggleHealthCard() {
     this.setData({
       showNutritionTable: !this.data.showNutritionTable
     });
   },
 
-  showRestaurantSheet: function () {
+  showRestaurantSheet() {
     this.setData({
       showRestaurant: true
     });
   },
 
-  hideRestaurantSheet: function () {
+  hideRestaurantSheet() {
     this.setData({
       showRestaurant: false
     });
   },
 
-  showCustomizeSheet: function () {
+  showCustomizeSheet() {
     this.setData({
       showCustomize: true,
       itemAdded: false
     });
   },
 
-  hideCustomizeSheet: function () {
+  hideCustomizeSheet() {
     this.setData({
       showCustomize: false
     });
   },
 
-  stopPropagation: function () {
+  stopPropagation() {
     // Prevents closing when tapping inside the sheet
   },
 
-  selectBase: function (e) {
-    var id = e.currentTarget.dataset.id;
+  selectBase(e) {
+    const id = e.currentTarget.dataset.id;
     this.setData({
       selectedBase: id
     });
   },
 
-  toggleSide: function (e) {
-    var id = e.currentTarget.dataset.id;
-    var sides = this.data.sidesOptions.map(function (side) {
+  toggleSide(e) {
+    const id = e.currentTarget.dataset.id;
+    const sides = this.data.sidesOptions.map(side => {
       if (side.id === id) {
-        return Object.assign({}, side, { selected: !side.selected });
+        return { ...side, selected: !side.selected };
       }
       return side;
     });
@@ -298,11 +296,11 @@ Page({
     });
   },
 
-  toggleDrink: function (e) {
-    var id = e.currentTarget.dataset.id;
-    var drinks = this.data.drinksOptions.map(function (drink) {
+  toggleDrink(e) {
+    const id = e.currentTarget.dataset.id;
+    const drinks = this.data.drinksOptions.map(drink => {
       if (drink.id === id) {
-        return Object.assign({}, drink, { selected: !drink.selected });
+        return { ...drink, selected: !drink.selected };
       }
       return drink;
     });
@@ -311,7 +309,7 @@ Page({
     });
   },
 
-  decreaseQuantity: function () {
+  decreaseQuantity() {
     if (this.data.quantity > 1) {
       this.setData({
         quantity: this.data.quantity - 1
@@ -319,25 +317,39 @@ Page({
     }
   },
 
-  increaseQuantity: function () {
+  increaseQuantity() {
     this.setData({
       quantity: this.data.quantity + 1
     });
   },
 
-  confirmCustomization: function () {
+  confirmCustomization() {
+    const selectedSides = this.data.sidesOptions
+      .filter(side => side.selected)
+      .map(side => side.name);
+    const selectedDrinks = this.data.drinksOptions
+      .filter(drink => drink.selected)
+      .map(drink => drink.name);
+
+    console.log('Customization:', {
+      base: this.data.selectedBase,
+      sides: selectedSides,
+      drinks: selectedDrinks,
+      quantity: this.data.quantity
+    });
+
     this.setData({
       showCustomize: false
     });
-    var that = this;
-    setTimeout(function () {
-      that.setData({
+
+    setTimeout(() => {
+      this.setData({
         itemAdded: true
       });
     }, 300);
   },
 
-  proceedToCart: function () {
+  proceedToCart() {
     if (!this.data.itemAdded) {
       this.showCustomizeSheet();
       return;
@@ -347,14 +359,14 @@ Page({
       icon: 'success',
       duration: 1500
     });
-    setTimeout(function () {
+    setTimeout(() => {
       wx.navigateTo({
         url: '/pages/cart/cart'
       });
     }, 1500);
   },
 
-  onBack: function () {
+  onBack() {
     wx.navigateBack();
   }
 });
