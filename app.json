@@ -2,7 +2,8 @@
   "pages": [
     "pages/cart/cart",
     "pages/cart-multi/cart-multi",
-    "pages/confirmation/confirmation"
+    "pages/confirmation/confirmation",
+    "pages/meal-detail/meal-detail"
   ],
   "window": {
     "navigationBarTitleText": "",

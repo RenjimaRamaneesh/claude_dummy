@@ -1,0 +1,393 @@
+<!-- pages/meal-detail/meal-detail.wxml -->
+<view class="meal-details-container">
+
+  <!-- Img Section -->
+  <view class="hero-image-wrapper">
+    <image class="main-image" src="{{mealData.image}}" mode="aspectFill"></image>
+    <view class="image-shade"></view>
+    <view class="veg-indicator {{mealData.isVeg ? 'veg' : 'non-veg'}}">
+      <view class="indicator-inner"></view>
+    </view>
+  </view>
+
+  <!-- Top Notch (Back & Notification) -->
+  <view class="top-notch">
+    <view class="back-butt" bindtap="onBack">
+      <view class="back-icon-wrapper">
+        <image src="/assets/icons/arrow-left.png" class="back-vector"></image>
+      </view>
+    </view>
+    <view class="notification-butt">
+      <image src="/assets/icons/notification.png" class="notif-vector"></image>
+      <view class="notif-dot" wx:if="{{hasNotification}}"></view>
+    </view>
+  </view>
+
+  <!-- Main Content Scroll Area -->
+  <scroll-view class="main-scroll-view" scroll-y>
+
+    <!-- Main Txt (Title & Description) -->
+    <view class="main-txt-section">
+      <text class="meal-title">{{mealData.name}}</text>
+      <text class="meal-desc">{{mealData.description}}</text>
+    </view>
+
+    <!-- Restaurant Det -->
+    <view class="restaurant-det" bindtap="showRestaurantSheet">
+      <view class="rest-by">by {{mealData.restaurant}}</view>
+      <view class="rest-rating">
+        <image src="/images/star.png" class="star-icon"></image>
+        <text class="rating-val">{{mealData.rating}}</text>
+      </view>
+      <view class="rest-dot"></view>
+      <view class="view-link">
+        <text>View restaurant</text>
+        <image src="/assets/icons/arrow-right.png" class="link-vector"></image>
+      </view>
+    </view>
+
+    <!-- Main Val (Nutrition Row) -->
+    <view class="main-val-row">
+      <view class="val-item calorie">
+        <text class="val-label">Fuel Value</text>
+        <text class="val-value color-red">{{mealData.calories}} Kcal</text>
+      </view>
+      <view class="val-divider"></view>
+      <view class="val-item protein">
+        <text class="val-label">Protein</text>
+        <text class="val-value">{{mealData.protein}} g</text>
+      </view>
+      <view class="val-divider"></view>
+      <view class="val-item carbs">
+        <text class="val-label">Carbs</text>
+        <text class="val-value">{{mealData.carbs}} g</text>
+      </view>
+      <view class="val-divider"></view>
+      <view class="val-item fat">
+        <text class="val-label">Fat</text>
+        <text class="val-value">{{mealData.fat}} g</text>
+      </view>
+
+      <!-- Cost (Price) -->
+      <view class="cost-badge">
+        <view class="dirham-symbol"></view>
+        <text class="price-val">{{mealData.price}}</text>
+      </view>
+    </view>
+
+    <!-- Allergens -->
+    <view class="allergens-container">
+      <text class="allergens-title">Allergens</text>
+      <view class="allergen-list">
+        <view class="allergen-item" wx:for="{{mealData.allergens}}" wx:key="index">
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Stat Sec (Health Card) -->
+    <view class="stat-sec {{showNutritionTable ? 'is-flipped' : ''}}" bindtap="toggleHealthCard">
+      <view class="stat-card-inner">
+
+        <!-- Front: Chart View -->
+        <view class="stat-face face-front">
+          <view class="stat-header">
+            <view class="stat-titles">
+              <text class="stat-main-title">Is this healthy for me?</text>
+              <text class="stat-sub-title">See how this meal fits your current plan</text>
+            </view>
+            <view class="compare-icon">
+              <image src="/assets/icons/table.png" class="compare-vector"></image>
+            </view>
+          </view>
+          <view class="chart-container">
+            <view class="chart-wrapper">
+              <canvas canvas-id="nutritionChart" class="nutrition-chart"></canvas>
+              <view class="fuel-value-center">
+                <image src="/assets/icons/fire.png" class="fire-icon"></image>
+                <text class="kcal-val">{{mealData.calories}}\nkcal</text>
+              </view>
+            </view>
+            <view class="chart-legend">
+              <view class="legend-item protein">
+                <view class="legend-tab"></view>
+                <text>Protein</text>
+              </view>
+              <view class="legend-item carbs">
+                <view class="legend-tab"></view>
+                <text>Carbs</text>
+              </view>
+              <view class="legend-item fat">
+                <view class="legend-tab"></view>
+                <text>Fat</text>
+              </view>
+            </view>
+          </view>
+          <view class="con-txt-area">
+            <view class="txt-icon-row">
+              <view class="tick-circle"></view>
+              <text class="good-choice-txt">Good choice for your plan</text>
+            </view>
+            <text class="bmi-goals-txt">Aligned with your current BMI and goals</text>
+          </view>
+        </view>
+
+        <!-- Back: Table View -->
+        <view class="stat-face face-back">
+          <view class="stat-header">
+            <view class="stat-titles">
+              <text class="stat-main-title">Nutrition Comparison</text>
+              <text class="stat-sub-title">{{mealData.name}}</text>
+            </view>
+            <view class="compare-icon">
+              <image src="/assets/icons/chart.png" class="compare-vector"></image>
+            </view>
+          </view>
+          <view class="nutrition-table">
+            <view class="table-header">
+              <text class="col-fuel">Fuel Type</text>
+              <text class="col-target">Target</text>
+              <text class="col-actual">Actual</text>
+            </view>
+            <view class="table-row">
+              <view class="fuel-type">
+                <view class="fuel-tab protein"></view>
+                <text>Protein</text>
+              </view>
+              <text class="val-target">{{nutritionTarget.protein}}g</text>
+              <text class="val-actual">{{mealData.protein}}g</text>
+            </view>
+            <view class="table-row">
+              <view class="fuel-type">
+                <view class="fuel-tab carbs"></view>
+                <text>Carbs</text>
+              </view>
+              <text class="val-target">{{nutritionTarget.carbs}}g</text>
+              <text class="val-actual">{{mealData.carbs}}g</text>
+            </view>
+            <view class="table-row">
+              <view class="fuel-type">
+                <view class="fuel-tab fat"></view>
+                <text>Fat</text>
+              </view>
+              <text class="val-target">{{nutritionTarget.fat}}g</text>
+              <text class="val-actual">{{mealData.fat}}g</text>
+            </view>
+          </view>
+          <view class="con-txt-area">
+            <view class="txt-icon-row">
+              <view class="tick-circle"></view>
+              <text class="good-choice-txt">Good choice for your plan</text>
+            </view>
+            <text class="bmi-goals-txt">Higher carbs than ideal, but balanced with protein</text>
+          </view>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="bottom-padding"></view>
+  </scroll-view>
+
+  <!-- Nav Bar (Bottom Add Butt) -->
+  <view class="nav-bar">
+    <view class="nav-bar-rect"></view>
+    <view class="add-butt {{itemAdded ? 'active' : ''}}" bindtap="{{itemAdded ? 'proceedToCart' : 'showCustomizeSheet'}}">
+      <view class="add-butt-rect"></view>
+      <text class="add-text">{{itemAdded ? 'Go to Cart' : 'Add'}}</text>
+    </view>
+    <view class="home-indicator">
+      <view class="indicator-bar"></view>
+    </view>
+  </view>
+
+  <!-- Item Added Overlay/State (Customization link) -->
+  <view class="added-overlay" wx:if="{{itemAdded}}">
+    <text class="customize-link" bindtap="showCustomizeSheet">Customize More</text>
+  </view>
+
+</view>
+
+<!-- Restaurant Pop Up (Rest Pop Up) -->
+<view class="pop-up-overlay {{showRestaurant ? 'show' : ''}}" bindtap="hideRestaurantSheet">
+  <view class="rest-pop-up {{showRestaurant ? 'show' : ''}}" catchtap="stopPropagation">
+    <view class="rest-main-tab">
+      <view class="pop-up-handle"></view>
+      <view class="rest-img-section">
+        <image src="{{restaurantData.image}}" class="rest-hero-img" mode="aspectFill"></image>
+        <view class="cancel-butt" bindtap="hideRestaurantSheet">
+          <view class="cancel-circle"></view>
+          <image src="/assets/icons/close.png" class="cancel-icon"></image>
+        </view>
+      </view>
+      <scroll-view class="rest-pop-content" scroll-y>
+        <view class="rest-info-header">
+          <view class="rest-names">
+            <text class="rest-title">{{restaurantData.name}}</text>
+            <text class="rest-subtitle">{{restaurantData.category}}</text>
+          </view>
+          <view class="rest-stats">
+            <view class="stat-line rating">
+              <image src="/images/star.png" class="stat-star"></image>
+              <text>{{restaurantData.rating}} ({{restaurantData.reviewCount}} Reviews)</text>
+            </view>
+            <view class="stat-line location">
+              <image src="/assets/icons/location.png" class="stat-loc"></image>
+              <text>{{restaurantData.location}} ({{restaurantData.distance}})</text>
+            </view>
+          </view>
+          <text class="rest-bio">{{restaurantData.description}}</text>
+        </view>
+
+        <!-- Food Standards -->
+        <view class="food-stds-section">
+          <view class="stds-header">
+            <view class="tick-circle-small"></view>
+            <text>Food Standards</text>
+          </view>
+          <scroll-view class="stds-scroll" scroll-x>
+            <view class="std-p-box" wx:for="{{restaurantData.standards}}" wx:key="index">
+              <view class="std-rect"></view>
+              <image src="{{item.icon}}" class="std-icon"></image>
+              <text class="std-text">{{item.text}}</text>
+            </view>
+          </scroll-view>
+        </view>
+
+        <!-- Today's Specials -->
+        <view class="specials-section">
+          <view class="specials-header">
+            <image src="/assets/icons/bowl.png" class="bowl-icon"></image>
+            <text>Today's Specials</text>
+          </view>
+          <scroll-view class="specials-scroll" scroll-x>
+            <view class="spec-menu-box" wx:for="{{restaurantData.specials}}" wx:key="index">
+              <image src="{{item.image}}" class="spec-img" mode="aspectFill"></image>
+              <view class="spec-overlay"></view>
+              <view class="spec-tag">
+                <view class="tag-rect"></view>
+                <text>{{item.category}}</text>
+              </view>
+              <view class="spec-name-price">
+                <view class="spec-name-container">
+                  <text class="spec-name">{{item.name}}</text>
+                  <text class="spec-desc-short">{{item.description}}</text>
+                </view>
+                <view class="spec-cost">
+                  <view class="cost-rect"></view>
+                  <view class="dirham-icon-small"></view>
+                  <text>{{item.price}}</text>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!-- Customization Pop Up (Meal Details Customization) -->
+<view class="pop-up-overlay {{showCustomize ? 'show' : ''}}" bindtap="hideCustomizeSheet">
+  <view class="customize-pop-up {{showCustomize ? 'show' : ''}}" catchtap="stopPropagation">
+    <view class="cust-nav-bar">
+      <view class="cust-nav-rect"></view>
+      <view class="cust-header">
+        <text class="cust-title">Customize your meal</text>
+        <text class="cust-subtitle">Adjust the base, sides, and drinks to match your taste & goals</text>
+      </view>
+    </view>
+
+    <scroll-view class="cust-scroll-content" scroll-y>
+      <!-- Bases Section -->
+      <view class="cust-section bases">
+        <view class="section-bg-rect"></view>
+        <view class="section-hdr">
+          <text class="sect-title">Choose Your Base</text>
+          <view class="manda-tag">Mandatory</view>
+        </view>
+        <text class="sect-desc">This forms the foundation of your meal</text>
+        <view class="opt-list">
+          <view class="opt-item {{selectedBase === item.id ? 'active' : ''}}"
+                wx:for="{{baseOptions}}" wx:key="id" bindtap="selectBase" data-id="{{item.id}}">
+            <view class="opt-rect"></view>
+            <view class="side-indicator"></view>
+            <view class="opt-info">
+              <text class="opt-name">{{item.name}} {{item.isDefault ? '(Default)' : ''}}</text>
+              <text class="opt-sub">{{item.description}}</text>
+            </view>
+            <view class="radio-butt {{selectedBase === item.id ? 'checked' : ''}}">
+              <view class="radio-dot" wx:if="{{selectedBase === item.id}}"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- Sides Section -->
+      <view class="cust-section sides">
+        <view class="section-hdr">
+          <text class="sect-title">Add Sides</text>
+          <view class="option-tag">Optional</view>
+        </view>
+        <text class="sect-desc">Boost protein or add balance to your meal</text>
+        <view class="opt-list-flat">
+          <view class="opt-item-flat {{item.selected ? 'active' : ''}}"
+                wx:for="{{sidesOptions}}" wx:key="id" bindtap="toggleSide" data-id="{{item.id}}">
+            <view class="opt-flat-rect"></view>
+            <view class="opt-info">
+              <view class="name-rec-row">
+                <text class="opt-name">{{item.name}}</text>
+                <view class="rec-icon" wx:if="{{item.recommended}}"></view>
+              </view>
+              <text class="opt-sub">{{item.description}}</text>
+            </view>
+            <view class="check-box {{item.selected ? 'checked' : ''}}">
+              <image src="/assets/icons/check.png" class="check-vector" wx:if="{{item.selected}}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- Drinks Section -->
+      <view class="cust-section drinks">
+        <view class="section-hdr">
+          <text class="sect-title">Recommended Drinks</text>
+        </view>
+        <text class="sect-desc">Complements your meal & improves digestion</text>
+        <view class="opt-list-flat">
+          <view class="opt-item-flat {{item.selected ? 'active' : ''}}"
+                wx:for="{{drinksOptions}}" wx:key="id" bindtap="toggleDrink" data-id="{{item.id}}">
+            <view class="opt-flat-rect"></view>
+            <view class="opt-info">
+              <text class="opt-name">{{item.name}}</text>
+              <text class="opt-sub">{{item.description}}</text>
+            </view>
+            <view class="check-box {{item.selected ? 'checked' : ''}}">
+              <image src="/assets/icons/check.png" class="check-vector" wx:if="{{item.selected}}"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="bottom-padding-large"></view>
+    </scroll-view>
+
+    <!-- Footer: Quantity & Done -->
+    <view class="cust-footer">
+      <view class="quant-tab">
+        <view class="quant-rect"></view>
+        <view class="minus-butt" bindtap="decreaseQuantity">
+          <view class="minus-vector"></view>
+        </view>
+        <text class="quant-val">{{quantity}}</text>
+        <view class="plus-butt" bindtap="increaseQuantity">
+          <image src="/assets/icons/plus.png" class="plus-vector"></image>
+        </view>
+      </view>
+      <view class="schedule-butt" bindtap="confirmCustomization">
+        <view class="sch-rect"></view>
+        <text class="done-text">Done</text>
+      </view>
+    </view>
+  </view>
+</view>
