@@ -72,7 +72,6 @@ Page({
       scrollHeight: scrollHeight
     });
     this._lastScrollTop = 0;
-    this._scrollTimer = null;
     this.fetchPopularMenu();
     this.fetchHighProteinMenu();
     this.fetchAllMenu();
@@ -231,18 +230,17 @@ Page({
     var self = this;
     var scrollTop = e.detail.scrollTop;
     var lastScrollTop = this._lastScrollTop || 0;
-    var diff = scrollTop - lastScrollTop;
-    if (this._scrollTimer) {
-      clearTimeout(this._scrollTimer);
+
+    // Scroll down: collapse carousel
+    if (scrollTop > lastScrollTop && scrollTop > 10 && !self.data.carouselCollapsed) {
+      self.setData({ carouselCollapsed: true });
     }
-    this._scrollTimer = setTimeout(function () {
-      if (diff > 5 && !self.data.carouselCollapsed && scrollTop > 20) {
-        self.setData({ carouselCollapsed: true });
-      } else if (diff < -5 && self.data.carouselCollapsed) {
-        self.setData({ carouselCollapsed: false });
-      }
-      self._lastScrollTop = scrollTop;
-    }, 50);
+    // Scroll up to top: expand carousel
+    if (scrollTop < lastScrollTop && scrollTop < 10 && self.data.carouselCollapsed) {
+      self.setData({ carouselCollapsed: false });
+    }
+
+    self._lastScrollTop = scrollTop;
   },
 
   // Filter Tabs
