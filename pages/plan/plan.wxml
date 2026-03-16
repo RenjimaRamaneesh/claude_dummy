@@ -1,0 +1,38 @@
+<!-- pages/plan/plan.wxml -->
+<view class="page-container">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+  <view class="shade-gradient"></view>
+
+  <!-- Header -->
+  <view class="header">
+    <text class="page-title">My Plan</text>
+  </view>
+
+  <!-- Content -->
+  <scroll-view scroll-y class="content-scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
+    <view class="empty-container">
+      <image style="width:120rpx;height:120rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMiAxMEMyIDEzLjMxMzcgNC42ODYyOSAxNiA4IDE2SDEyQzE1LjMxMzcgMTYgMTggMTMuMzEzNyAxOCAxMEgyWk0xMCAzQzEwIDMgOCA1IDggNi41QzggNy4zMjg0MyA4LjY3MTU3IDggOS41IDhDMTAuMzI4NCA4IDExIDcuMzI4NDMgMTEgNi41QzExIDUgMTAgMyAxMCAzWk02IDRDNiA0IDUgNS41IDUgNi41QzUgNy4wNTIyOCA1LjQ0NzcyIDcuNSA2IDcuNUM2LjU1MjI4IDcuNSA3IDcuMDUyMjggNyA2LjVDNyA1LjUgNiA0IDYgNFpNMTQgNEMxNCA0IDEzIDUuNSAxMyA2LjVDMTMgNy4wNTIyOCAxMy40NDc3IDcuNSAxNCA3LjVDMTQuNTUyMyA3LjUgMTUgNy4wNTIyOCAxNSA2LjVDMTUgNS41IDE0IDQgMTQgNFpNNCAxN0gxNkMxNiAxNy41NTIzIDE1LjU1MjMgMTggMTUgMThINUM0LjQ0NzcyIDE4IDQgMTcuNTUyMyA0IDE3WiIgZmlsbD0iIzdBQjMwMCIvPgo8L3N2Zz4K" mode="aspectFit"></image>
+      <text class="empty-title">No meal plans yet</text>
+      <text class="empty-subtitle">Start planning your meals to eat healthy all week</text>
+    </view>
+  </scroll-view>
+
+  <!-- Bottom Navigation Bar -->
+  <view class="bottom-nav">
+    <view class="nav-item" bindtap="onNavTap" data-tab="home">
+      <image style="width:44rpx;height:44rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3NTc1NzUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyA5bDktNyA5IDd2MTFhMiAyIDAgMCAxLTIgMkg1YTIgMiAwIDAgMS0yLTJ6Ii8+PHBvbHlsaW5lIHBvaW50cz0iOSAyMiA5IDEyIDE1IDEyIDE1IDIyIi8+PC9zdmc+Cg==" mode="aspectFit"></image>
+      <text class="nav-label">Home</text>
+    </view>
+    <view class="nav-item active" bindtap="onNavTap" data-tab="plan">
+      <image style="width:44rpx;height:44rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0iIzkwQ0ExNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMiAxMEMyIDEzLjMxMzcgNC42ODYyOSAxNiA4IDE2SDEyQzE1LjMxMzcgMTYgMTggMTMuMzEzNyAxOCAxMEgyWk0xMCAzQzEwIDMgOCA1IDggNi41QzggNy4zMjg0MyA4LjY3MTU3IDggOS41IDhDMTAuMzI4NCA4IDExIDcuMzI4NDMgMTEgNi41QzExIDUgMTAgMyAxMCAzWk02IDRDNiA0IDUgNS41IDUgNi41QzUgNy4wNTIyOCA1LjQ0NzcyIDcuNSA2IDcuNUM2LjU1MjI4IDcuNSA3IDcuMDUyMjggNyA2LjVDNyA1LjUgNiA0IDYgNFpNMTQgNEMxNCA0IDEzIDUuNSAxMyA2LjVDMTMgNy4wNTIyOCAxMy40NDc3IDcuNSAxNCA3LjVDMTQuNTUyMyA3LjUgMTUgNy4wNTIyOCAxNSA2LjVDMTUgNS41IDE0IDQgMTQgNFpNNCAxN0gxNkMxNiAxNy41NTIzIDE1LjU1MjMgMTggMTUgMThINUM0LjQ0NzcyIDE4IDQgMTcuNTUyMyA0IDE3WiIvPgo8L3N2Zz4K" mode="aspectFit"></image>
+      <text class="nav-label active">My Plan</text>
+    </view>
+    <view class="nav-item" bindtap="onNavTap" data-tab="activity">
+      <image style="width:44rpx;height:44rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3NTc1NzUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCIvPjwvc3ZnPgo=" mode="aspectFit"></image>
+      <text class="nav-label">My Activity</text>
+    </view>
+    <view class="home-indicator">
+      <view class="indicator-bar"></view>
+    </view>
+  </view>
+</view>
