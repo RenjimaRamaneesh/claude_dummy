@@ -63,7 +63,8 @@ Page({
     var systemInfo = wx.getWindowInfo();
     var statusBarHeight = systemInfo.statusBarHeight || 44;
     var screenHeight = systemInfo.windowHeight;
-    var scrollHeight = screenHeight - statusBarHeight - 60;
+    // Account for: header(~50) + search(~45) + filter tabs(~50) + bottom nav(~55)
+    var scrollHeight = screenHeight - statusBarHeight - 200;
     this.setData({
       statusBarHeight: statusBarHeight,
       scrollHeight: scrollHeight
