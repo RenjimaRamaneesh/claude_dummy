@@ -119,6 +119,7 @@ Page({
     wx.request({
       url: 'https://mealplanneruat.eateasy.ae/v1/menu/get-popular-menu',
       method: 'GET',
+      data: { api_id: '9dfcfe71e1dd2920e197c9880b203d12' },
       success: function (res) {
         console.log('[home] popular menu response:', res.data);
         if (res.data && res.data.results) {
@@ -148,6 +149,7 @@ Page({
     wx.request({
       url: 'https://mealplanneruat.eateasy.ae/v1/menu/get-high-protien-menu',
       method: 'GET',
+      data: { api_id: '9dfcfe71e1dd2920e197c9880b203d12' },
       success: function (res) {
         console.log('[home] protein menu response:', res.data);
         if (res.data && res.data.results) {
@@ -178,6 +180,7 @@ Page({
     wx.request({
       url: 'https://mealplanneruat.eateasy.ae/v1/menu/get-all-menu',
       method: 'GET',
+      data: { api_id: '9dfcfe71e1dd2920e197c9880b203d12' },
       success: function (res) {
         console.log('[home] all menu response:', res.data);
         if (res.data && res.data.results) {
