@@ -1,0 +1,318 @@
+<!-- pages/home/home.wxml -->
+<view class="page-container">
+  <!-- Status Bar Spacer -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- Shade Gradient -->
+  <view class="shade-gradient"></view>
+
+  <!-- Fixed Header -->
+  <view class="header">
+    <view class="location-section">
+      <image class="location-icon" src="/images/location.svg" mode="aspectFit"></image>
+      <view class="location-text">
+        <text class="deliver-label">Deliver Here</text>
+        <view class="address-row">
+          <text class="address">Apartment 1203, Al Furjan..</text>
+          <text class="dropdown-arrow">\u25BE</text>
+        </view>
+      </view>
+    </view>
+    <view class="header-icons">
+      <view class="icon-btn-wrap" bindtap="onFavoriteTap">
+        <image class="header-icon-img" src="/images/heart.svg" mode="aspectFit"></image>
+      </view>
+      <view class="icon-btn-wrap" bindtap="onNotificationTap">
+        <image class="header-icon-img" src="/images/bell.svg" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- Search Bar -->
+  <view class="search-container">
+    <view class="search-bar" bindtap="onSearchTap">
+      <image class="search-icon-img" src="/images/search.svg" mode="aspectFit"></image>
+      <text class="search-placeholder">Search...</text>
+    </view>
+  </view>
+
+  <!-- Scrollable Content -->
+  <scroll-view
+    scroll-y
+    class="content-scroll"
+    style="height: {{scrollHeight}}px;"
+    bindscroll="onContentScroll"
+    enhanced="{{true}}"
+    show-scrollbar="{{false}}"
+  >
+    <!-- Banner Carousel -->
+    <view class="carousel-section {{carouselCollapsed ? 'collapsed' : ''}}">
+      <swiper
+        class="banner-swiper"
+        indicator-dots
+        indicator-color="rgba(204,225,159,0.5)"
+        indicator-active-color="#90CA14"
+        autoplay
+        interval="{{3000}}"
+        circular
+        current="{{currentBanner}}"
+        bindchange="onBannerChange"
+      >
+        <swiper-item wx:for="{{banners}}" wx:key="id">
+          <view class="banner-item">
+            <image class="banner-image" src="{{item.image}}" mode="aspectFill"></image>
+            <view class="banner-overlay"></view>
+            <view class="banner-content">
+              <view class="banner-discount-row">
+                <text class="banner-discount-num">{{item.discountNum}}</text>
+                <view class="banner-discount-symbols">
+                  <text class="banner-percent">%</text>
+                  <text class="banner-off">OFF</text>
+                </view>
+              </view>
+              <text class="banner-title">{{item.title}}</text>
+              <text class="banner-subtitle">{{item.subtitle}}</text>
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- Filter Horizontal Bar -->
+    <view class="filter-section">
+      <view class="filter-tabs">
+        <view class="filter-icon-btn" bindtap="onFilterTap">
+          <image class="filter-icon-img" src="/images/filter.svg" mode="aspectFit"></image>
+        </view>
+        <scroll-view class="tabs-scroll" scroll-x enhanced="{{true}}" show-scrollbar="{{false}}">
+          <view class="tabs-track">
+            <block wx:for="{{filterTabs}}" wx:key="value">
+              <view
+                class="tab-item {{activeTab === item.value ? 'active' : ''}}"
+                bindtap="onTabChange"
+                data-value="{{item.value}}"
+              >
+                <text>{{item.label}}</text>
+              </view>
+            </block>
+          </view>
+        </scroll-view>
+
+        <!-- Veg Toggle -->
+        <view class="veg-toggle" bindtap="toggleVeg">
+          <view class="veg-toggle-track {{vegOnly ? 'on' : ''}}">
+            <view class="veg-toggle-thumb">
+              <view class="veg-indicator">
+                <view class="veg-dot"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Healthy Savings Section (Popular Menu) -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-row">
+          <text class="section-title">Healthy Savings</text>
+          <image class="section-emoji-img" src="/images/savings.svg" mode="aspectFit"></image>
+        </view>
+        <text class="section-subtitle">Popular healthy picks near you</text>
+      </view>
+
+      <!-- Loading State -->
+      <view wx:if="{{loadingPopular}}" class="loading-row">
+        <view class="loading-card" wx:for="{{[1,2,3]}}" wx:key="*this">
+          <view class="loading-image-placeholder"></view>
+          <view class="loading-text-placeholder"></view>
+          <view class="loading-text-short"></view>
+        </view>
+      </view>
+
+      <scroll-view wx:else class="horizontal-scroll" scroll-x enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="meal-cards-row">
+          <block wx:for="{{healthySavings}}" wx:key="id">
+            <view class="meal-card" bindtap="onMealTap" data-id="{{item.id}}">
+              <view class="meal-image-wrap">
+                <image class="meal-image" src="{{item.image}}" mode="aspectFill" lazy-load></image>
+                <!-- Diet Badge -->
+                <view class="diet-badge {{item.dietType}}">
+                  <view class="diet-badge-dot"></view>
+                </view>
+                <!-- Heart -->
+                <view class="heart-btn" catchtap="onHeartTap" data-id="{{item.id}}">
+                  <image class="heart-icon-img {{item.liked ? 'liked' : ''}}" src="/images/heart-white.svg" mode="aspectFit"></image>
+                </view>
+              </view>
+              <view class="meal-info">
+                <text class="meal-name">{{item.name}}</text>
+                <text class="meal-vendor">{{item.restaurant}}</text>
+              </view>
+              <view class="meal-footer">
+                <view class="calories-row">
+                  <image class="fire-icon" src="/images/fire.svg" mode="aspectFit"></image>
+                  <text class="calories-text">{{item.calories}}+ kcal</text>
+                </view>
+                <view class="add-btn" catchtap="onAddMeal" data-id="{{item.id}}">
+                  <text class="add-plus">+</text>
+                  <text class="add-text">Add</text>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- Protein Picks Section (High Protein Menu) -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-row">
+          <text class="section-title">Protein Picks</text>
+          <image class="section-emoji-img" src="/images/protein.svg" mode="aspectFit"></image>
+        </view>
+        <text class="section-subtitle">High-protein meals to keep you full longer</text>
+      </view>
+
+      <!-- Loading State -->
+      <view wx:if="{{loadingProtein}}" class="loading-row">
+        <view class="loading-card" wx:for="{{[1,2,3]}}" wx:key="*this">
+          <view class="loading-image-placeholder"></view>
+          <view class="loading-text-placeholder"></view>
+          <view class="loading-text-short"></view>
+        </view>
+      </view>
+
+      <scroll-view wx:else class="horizontal-scroll" scroll-x enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="meal-cards-row">
+          <block wx:for="{{proteinPicks}}" wx:key="id">
+            <view class="meal-card" bindtap="onMealTap" data-id="{{item.id}}">
+              <view class="meal-image-wrap">
+                <image class="meal-image" src="{{item.image}}" mode="aspectFill" lazy-load></image>
+                <view class="diet-badge {{item.dietType}}">
+                  <view class="diet-badge-dot"></view>
+                </view>
+                <view class="heart-btn" catchtap="onHeartTap" data-id="{{item.id}}">
+                  <image class="heart-icon-img {{item.liked ? 'liked' : ''}}" src="/images/heart-white.svg" mode="aspectFit"></image>
+                </view>
+              </view>
+              <view class="meal-info">
+                <text class="meal-name">{{item.name}}</text>
+                <text class="meal-vendor">{{item.restaurant}}</text>
+              </view>
+              <view class="meal-footer">
+                <view class="calories-row">
+                  <image class="fire-icon" src="/images/fire.svg" mode="aspectFit"></image>
+                  <text class="calories-text">{{item.calories}}+ kcal</text>
+                </view>
+                <view class="add-btn-green" catchtap="onAddMeal" data-id="{{item.id}}">
+                  <text class="add-text-white">Add</text>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- All Menu Section -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-row">
+          <text class="section-title">All Menu</text>
+          <image class="section-emoji-img" src="/images/bowl-food.svg" mode="aspectFit"></image>
+        </view>
+        <text class="section-subtitle">Browse our full selection</text>
+      </view>
+
+      <!-- Loading State -->
+      <view wx:if="{{loadingAll}}" class="loading-column">
+        <view class="loading-large-card" wx:for="{{[1,2]}}" wx:key="*this">
+          <view class="loading-large-image"></view>
+        </view>
+      </view>
+
+      <block wx:else>
+        <block wx:for="{{allMenuItems}}" wx:key="id">
+          <view class="large-meal-card" bindtap="onMealTap" data-id="{{item.id}}">
+            <view class="large-image-wrap">
+              <image class="large-meal-image" src="{{item.image}}" mode="aspectFill" lazy-load></image>
+              <view class="large-overlay"></view>
+              <!-- Diet Badge -->
+              <view class="diet-badge large-badge {{item.dietType}}">
+                <view class="diet-badge-dot"></view>
+              </view>
+              <!-- Heart -->
+              <view class="heart-btn large-heart" catchtap="onHeartTap" data-id="{{item.id}}">
+                <image class="heart-icon-img" src="/images/heart-white.svg" mode="aspectFit"></image>
+              </view>
+              <!-- Bottom Info Overlay -->
+              <view class="large-meal-overlay-info">
+                <view class="large-meal-text">
+                  <text class="large-meal-name">{{item.name}}</text>
+                  <text class="large-meal-vendor">{{item.restaurant}}</text>
+                </view>
+                <view class="large-meal-right">
+                  <view class="large-cost">
+                    <text class="dirham-symbol">AED</text>
+                    <text class="large-price">{{item.price}}</text>
+                  </view>
+                  <view class="large-calories">
+                    <image class="fire-icon-sm" src="/images/fire.svg" mode="aspectFit"></image>
+                    <text class="large-cal-text">{{item.calories}}+ kcal</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <!-- Tags -->
+            <view wx:if="{{item.tags.length > 0}}" class="meal-tags">
+              <block wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">
+                <view class="tag-pill">
+                  <text class="tag-text">{{tag}}</text>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+
+    <!-- Bottom Spacer -->
+    <view class="bottom-spacing"></view>
+  </scroll-view>
+
+  <!-- Floating Plan My Meal Card -->
+  <view class="floating-plan-card" bindtap="onPlanMealTap">
+    <view class="plan-left">
+      <image class="plan-calendar-img" src="/images/clock.svg" mode="aspectFit"></image>
+      <view class="plan-text">
+        <text class="plan-title">Plan My Meal</text>
+        <text class="plan-subtitle">Plan once, enjoy all week.</text>
+      </view>
+    </view>
+    <view class="plan-arrow-btn">
+      <text class="plan-arrow">\u2197</text>
+    </view>
+  </view>
+
+  <!-- Bottom Navigation Bar -->
+  <view class="bottom-nav">
+    <view class="nav-item active" bindtap="onNavTap" data-tab="home">
+      <image class="nav-icon-img" src="/images/home-active.svg" mode="aspectFit"></image>
+      <text class="nav-label active">Home</text>
+    </view>
+    <view class="nav-item" bindtap="onNavTap" data-tab="plan">
+      <image class="nav-icon-img" src="/images/bowl-food.svg" mode="aspectFit"></image>
+      <text class="nav-label">My Plan</text>
+    </view>
+    <view class="nav-item" bindtap="onNavTap" data-tab="activity">
+      <image class="nav-icon-img" src="/images/user.svg" mode="aspectFit"></image>
+      <text class="nav-label">My Activity</text>
+    </view>
+    <!-- Home Indicator -->
+    <view class="home-indicator">
+      <view class="indicator-bar"></view>
+    </view>
+  </view>
+</view>
