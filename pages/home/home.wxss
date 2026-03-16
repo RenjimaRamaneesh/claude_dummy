@@ -498,6 +498,17 @@ page {
   }
 }
 
+/* ========== Empty State ========== */
+.empty-state {
+  padding: 40rpx 0;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 24rpx;
+  color: #949494;
+}
+
 /* ========== Horizontal Scroll ========== */
 .horizontal-scroll {
   white-space: nowrap;

@@ -74,6 +74,7 @@ Page({
     this._lastScrollTop = 0;
     this._scrollTimer = null;
 
+    console.log('[home] BASE_URL:', BASE_URL);
     this.fetchPopularMenu();
     this.fetchHighProteinMenu();
     this.fetchAllMenu();
