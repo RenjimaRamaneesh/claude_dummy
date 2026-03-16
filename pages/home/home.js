@@ -1,5 +1,4 @@
-var BASE_URL = 'https://mealplanneruat.eateasy.ae/v1';
-var IMAGE_BASE_URL = 'https://mealplanneruat.eateasy.ae/';
+var app = getApp();
 
 Page({
   data: {
@@ -65,16 +64,12 @@ Page({
     var statusBarHeight = systemInfo.statusBarHeight || 44;
     var screenHeight = systemInfo.windowHeight;
     var scrollHeight = screenHeight - statusBarHeight - 60;
-
     this.setData({
       statusBarHeight: statusBarHeight,
       scrollHeight: scrollHeight
     });
-
     this._lastScrollTop = 0;
     this._scrollTimer = null;
-
-    console.log('[home] BASE_URL:', BASE_URL);
     this.fetchPopularMenu();
     this.fetchHighProteinMenu();
     this.fetchAllMenu();
@@ -94,7 +89,7 @@ Page({
     if (imagePath.indexOf('http') === 0) {
       return imagePath;
     }
-    return IMAGE_BASE_URL + imagePath;
+    return 'https://mealplanneruat.eateasy.ae/' + imagePath;
   },
 
   formatMenuItem: function (item) {
@@ -105,7 +100,6 @@ Page({
     } else if (item.is_vegan) {
       dietType = 'veg';
     }
-
     return {
       id: parseInt(item.id),
       name: item.name || '',
@@ -122,15 +116,16 @@ Page({
   fetchPopularMenu: function () {
     var self = this;
     self.setData({ loadingPopular: true });
-
     wx.request({
-      url: BASE_URL + '/menu/get-popular-menu',
+      url: 'https://mealplanneruat.eateasy.ae/v1/menu/get-popular-menu',
       method: 'GET',
       success: function (res) {
+        console.log('[home] popular menu response:', res.data);
         if (res.data && res.data.results) {
           var items = res.data.results.map(function (item) {
             return self.formatMenuItem(item);
           });
+          console.log('[home] popular items:', items);
           self.setData({
             healthySavings: items,
             loadingPopular: false
@@ -139,7 +134,8 @@ Page({
           self.setData({ loadingPopular: false });
         }
       },
-      fail: function () {
+      fail: function (err) {
+        console.error('[home] popular menu error:', err);
         self.setData({ loadingPopular: false });
         wx.showToast({ title: 'Failed to load popular menu', icon: 'none' });
       }
@@ -149,11 +145,11 @@ Page({
   fetchHighProteinMenu: function () {
     var self = this;
     self.setData({ loadingProtein: true });
-
     wx.request({
-      url: BASE_URL + '/menu/get-high-protien-menu',
+      url: 'https://mealplanneruat.eateasy.ae/v1/menu/get-high-protien-menu',
       method: 'GET',
       success: function (res) {
+        console.log('[home] protein menu response:', res.data);
         if (res.data && res.data.results) {
           var items = res.data.results.map(function (item) {
             var formatted = self.formatMenuItem(item);
@@ -168,7 +164,8 @@ Page({
           self.setData({ loadingProtein: false });
         }
       },
-      fail: function () {
+      fail: function (err) {
+        console.error('[home] protein menu error:', err);
         self.setData({ loadingProtein: false });
         wx.showToast({ title: 'Failed to load protein menu', icon: 'none' });
       }
@@ -178,11 +175,11 @@ Page({
   fetchAllMenu: function () {
     var self = this;
     self.setData({ loadingAll: true });
-
     wx.request({
-      url: BASE_URL + '/menu/get-all-menu',
+      url: 'https://mealplanneruat.eateasy.ae/v1/menu/get-all-menu',
       method: 'GET',
       success: function (res) {
+        console.log('[home] all menu response:', res.data);
         if (res.data && res.data.results) {
           var items = res.data.results.map(function (item) {
             var formatted = self.formatMenuItem(item);
@@ -201,7 +198,8 @@ Page({
           self.setData({ loadingAll: false });
         }
       },
-      fail: function () {
+      fail: function (err) {
+        console.error('[home] all menu error:', err);
         self.setData({ loadingAll: false });
         wx.showToast({ title: 'Failed to load menu', icon: 'none' });
       }
@@ -219,11 +217,9 @@ Page({
     var scrollTop = e.detail.scrollTop;
     var lastScrollTop = this._lastScrollTop || 0;
     var diff = scrollTop - lastScrollTop;
-
     if (this._scrollTimer) {
       clearTimeout(this._scrollTimer);
     }
-
     this._scrollTimer = setTimeout(function () {
       if (diff > 5 && !self.data.carouselCollapsed && scrollTop > 20) {
         self.setData({ carouselCollapsed: true });
