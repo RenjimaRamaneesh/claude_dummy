@@ -1,4 +1,5 @@
-var app = getApp();
+var BASE_URL = 'https://mealplanneruat.eateasy.ae/v1';
+var IMAGE_BASE_URL = 'https://mealplanneruat.eateasy.ae/';
 
 Page({
   data: {
@@ -92,7 +93,7 @@ Page({
     if (imagePath.indexOf('http') === 0) {
       return imagePath;
     }
-    return app.globalData.imageBaseUrl + imagePath;
+    return IMAGE_BASE_URL + imagePath;
   },
 
   formatMenuItem: function (item) {
@@ -122,7 +123,7 @@ Page({
     self.setData({ loadingPopular: true });
 
     wx.request({
-      url: app.globalData.baseUrl + '/menu/get-popular-menu',
+      url: BASE_URL + '/menu/get-popular-menu',
       method: 'GET',
       success: function (res) {
         if (res.data && res.data.results) {
@@ -149,7 +150,7 @@ Page({
     self.setData({ loadingProtein: true });
 
     wx.request({
-      url: app.globalData.baseUrl + '/menu/get-high-protien-menu',
+      url: BASE_URL + '/menu/get-high-protien-menu',
       method: 'GET',
       success: function (res) {
         if (res.data && res.data.results) {
@@ -178,7 +179,7 @@ Page({
     self.setData({ loadingAll: true });
 
     wx.request({
-      url: app.globalData.baseUrl + '/menu/get-all-menu',
+      url: BASE_URL + '/menu/get-all-menu',
       method: 'GET',
       success: function (res) {
         if (res.data && res.data.results) {

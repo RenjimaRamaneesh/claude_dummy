@@ -47,9 +47,33 @@ page {
   gap: 12rpx;
 }
 
-.location-icon {
-  width: 64rpx;
-  height: 64rpx;
+.location-icon-wrap {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location-pin {
+  width: 28rpx;
+  height: 28rpx;
+  background: #456401;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  position: relative;
+}
+
+.location-pin::after {
+  content: '';
+  width: 12rpx;
+  height: 12rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .location-text {
@@ -99,9 +123,10 @@ page {
   justify-content: center;
 }
 
-.header-icon-img {
-  width: 28rpx;
-  height: 28rpx;
+.icon-text {
+  font-size: 28rpx;
+  color: #949494;
+  line-height: 1;
 }
 
 /* ========== Search Bar ========== */
@@ -121,9 +146,8 @@ page {
   gap: 16rpx;
 }
 
-.search-icon-img {
-  width: 32rpx;
-  height: 32rpx;
+.search-icon-text {
+  font-size: 32rpx;
   opacity: 0.5;
 }
 
@@ -175,10 +199,11 @@ page {
   overflow: hidden;
 }
 
-.banner-image {
+.banner-bg {
   width: 100%;
   height: 100%;
   border-radius: 24rpx;
+  background: linear-gradient(135deg, #E8F5D0 0%, #CCE19F 50%, #B8D48A 100%);
 }
 
 .banner-overlay {
@@ -187,7 +212,7 @@ page {
   top: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60.8%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60.8%, rgba(0, 0, 0, 0.05) 100%);
   border-radius: 24rpx;
 }
 
@@ -272,9 +297,9 @@ page {
   flex-shrink: 0;
 }
 
-.filter-icon-img {
-  width: 32rpx;
-  height: 32rpx;
+.filter-icon-text {
+  font-size: 32rpx;
+  color: #90CA14;
 }
 
 .tabs-scroll {
@@ -392,9 +417,8 @@ page {
   color: #1E1E1E;
 }
 
-.section-emoji-img {
-  width: 36rpx;
-  height: 36rpx;
+.section-emoji {
+  font-size: 32rpx;
 }
 
 .section-subtitle {
@@ -567,13 +591,13 @@ page {
   justify-content: center;
 }
 
-.heart-icon-img {
-  width: 28rpx;
-  height: 28rpx;
+.heart-icon {
+  font-size: 28rpx;
+  color: #FFFFFF;
 }
 
-.heart-icon-img.liked {
-  opacity: 1;
+.heart-icon.liked {
+  color: #FF4444;
 }
 
 /* Meal Info */
@@ -617,14 +641,14 @@ page {
   gap: 4rpx;
 }
 
-.fire-icon {
-  width: 32rpx;
-  height: 32rpx;
+.fire-icon-text {
+  font-size: 24rpx;
+  line-height: 1;
 }
 
-.fire-icon-sm {
-  width: 28rpx;
-  height: 28rpx;
+.fire-icon-text-sm {
+  font-size: 20rpx;
+  line-height: 1;
 }
 
 .calories-text {
@@ -827,9 +851,8 @@ page {
   gap: 16rpx;
 }
 
-.plan-calendar-img {
-  width: 40rpx;
-  height: 40rpx;
+.plan-calendar-icon {
+  font-size: 36rpx;
 }
 
 .plan-text {
@@ -897,13 +920,18 @@ page {
   flex: 1;
 }
 
-.nav-icon-img {
-  width: 44rpx;
-  height: 44rpx;
+.nav-icon-text {
+  font-size: 44rpx;
+  color: #757575;
+  line-height: 1;
 }
 
-.nav-item.active .nav-icon-img {
-  /* Active state handled by using different SVG */
+.nav-icon-text.nav-home {
+  font-size: 48rpx;
+}
+
+.nav-item.active .nav-icon-text {
+  color: #90CA14;
 }
 
 .nav-label {

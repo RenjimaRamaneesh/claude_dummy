@@ -9,7 +9,9 @@
   <!-- Fixed Header -->
   <view class="header">
     <view class="location-section">
-      <image class="location-icon" src="/images/location.svg" mode="aspectFit"></image>
+      <view class="location-icon-wrap">
+        <view class="location-pin"></view>
+      </view>
       <view class="location-text">
         <text class="deliver-label">Deliver Here</text>
         <view class="address-row">
@@ -20,10 +22,10 @@
     </view>
     <view class="header-icons">
       <view class="icon-btn-wrap" bindtap="onFavoriteTap">
-        <image class="header-icon-img" src="/images/heart.svg" mode="aspectFit"></image>
+        <text class="icon-text">\u2661</text>
       </view>
       <view class="icon-btn-wrap" bindtap="onNotificationTap">
-        <image class="header-icon-img" src="/images/bell.svg" mode="aspectFit"></image>
+        <text class="icon-text">\uD83D\uDD14</text>
       </view>
     </view>
   </view>
@@ -31,7 +33,7 @@
   <!-- Search Bar -->
   <view class="search-container">
     <view class="search-bar" bindtap="onSearchTap">
-      <image class="search-icon-img" src="/images/search.svg" mode="aspectFit"></image>
+      <text class="search-icon-text">\uD83D\uDD0D</text>
       <text class="search-placeholder">Search...</text>
     </view>
   </view>
@@ -60,7 +62,7 @@
       >
         <swiper-item wx:for="{{banners}}" wx:key="id">
           <view class="banner-item">
-            <image class="banner-image" src="{{item.image}}" mode="aspectFill"></image>
+            <view class="banner-bg"></view>
             <view class="banner-overlay"></view>
             <view class="banner-content">
               <view class="banner-discount-row">
@@ -82,7 +84,7 @@
     <view class="filter-section">
       <view class="filter-tabs">
         <view class="filter-icon-btn" bindtap="onFilterTap">
-          <image class="filter-icon-img" src="/images/filter.svg" mode="aspectFit"></image>
+          <text class="filter-icon-text">\u2630</text>
         </view>
         <scroll-view class="tabs-scroll" scroll-x enhanced="{{true}}" show-scrollbar="{{false}}">
           <view class="tabs-track">
@@ -116,7 +118,7 @@
       <view class="section-header">
         <view class="section-title-row">
           <text class="section-title">Healthy Savings</text>
-          <image class="section-emoji-img" src="/images/savings.svg" mode="aspectFit"></image>
+          <text class="section-emoji">\uD83D\uDCB0</text>
         </view>
         <text class="section-subtitle">Popular healthy picks near you</text>
       </view>
@@ -142,7 +144,7 @@
                 </view>
                 <!-- Heart -->
                 <view class="heart-btn" catchtap="onHeartTap" data-id="{{item.id}}">
-                  <image class="heart-icon-img {{item.liked ? 'liked' : ''}}" src="/images/heart-white.svg" mode="aspectFit"></image>
+                  <text class="heart-icon {{item.liked ? 'liked' : ''}}">\u2661</text>
                 </view>
               </view>
               <view class="meal-info">
@@ -151,7 +153,7 @@
               </view>
               <view class="meal-footer">
                 <view class="calories-row">
-                  <image class="fire-icon" src="/images/fire.svg" mode="aspectFit"></image>
+                  <text class="fire-icon-text">\uD83D\uDD25</text>
                   <text class="calories-text">{{item.calories}}+ kcal</text>
                 </view>
                 <view class="add-btn" catchtap="onAddMeal" data-id="{{item.id}}">
@@ -170,7 +172,7 @@
       <view class="section-header">
         <view class="section-title-row">
           <text class="section-title">Protein Picks</text>
-          <image class="section-emoji-img" src="/images/protein.svg" mode="aspectFit"></image>
+          <text class="section-emoji">\uD83D\uDCAA</text>
         </view>
         <text class="section-subtitle">High-protein meals to keep you full longer</text>
       </view>
@@ -194,7 +196,7 @@
                   <view class="diet-badge-dot"></view>
                 </view>
                 <view class="heart-btn" catchtap="onHeartTap" data-id="{{item.id}}">
-                  <image class="heart-icon-img {{item.liked ? 'liked' : ''}}" src="/images/heart-white.svg" mode="aspectFit"></image>
+                  <text class="heart-icon {{item.liked ? 'liked' : ''}}">\u2661</text>
                 </view>
               </view>
               <view class="meal-info">
@@ -203,7 +205,7 @@
               </view>
               <view class="meal-footer">
                 <view class="calories-row">
-                  <image class="fire-icon" src="/images/fire.svg" mode="aspectFit"></image>
+                  <text class="fire-icon-text">\uD83D\uDD25</text>
                   <text class="calories-text">{{item.calories}}+ kcal</text>
                 </view>
                 <view class="add-btn-green" catchtap="onAddMeal" data-id="{{item.id}}">
@@ -221,7 +223,7 @@
       <view class="section-header">
         <view class="section-title-row">
           <text class="section-title">All Menu</text>
-          <image class="section-emoji-img" src="/images/bowl-food.svg" mode="aspectFit"></image>
+          <text class="section-emoji">\uD83C\uDF5B</text>
         </view>
         <text class="section-subtitle">Browse our full selection</text>
       </view>
@@ -245,7 +247,7 @@
               </view>
               <!-- Heart -->
               <view class="heart-btn large-heart" catchtap="onHeartTap" data-id="{{item.id}}">
-                <image class="heart-icon-img" src="/images/heart-white.svg" mode="aspectFit"></image>
+                <text class="heart-icon">\u2661</text>
               </view>
               <!-- Bottom Info Overlay -->
               <view class="large-meal-overlay-info">
@@ -259,7 +261,7 @@
                     <text class="large-price">{{item.price}}</text>
                   </view>
                   <view class="large-calories">
-                    <image class="fire-icon-sm" src="/images/fire.svg" mode="aspectFit"></image>
+                    <text class="fire-icon-text-sm">\uD83D\uDD25</text>
                     <text class="large-cal-text">{{item.calories}}+ kcal</text>
                   </view>
                 </view>
@@ -285,7 +287,7 @@
   <!-- Floating Plan My Meal Card -->
   <view class="floating-plan-card" bindtap="onPlanMealTap">
     <view class="plan-left">
-      <image class="plan-calendar-img" src="/images/clock.svg" mode="aspectFit"></image>
+      <text class="plan-calendar-icon">\uD83D\uDCC5</text>
       <view class="plan-text">
         <text class="plan-title">Plan My Meal</text>
         <text class="plan-subtitle">Plan once, enjoy all week.</text>
@@ -299,15 +301,15 @@
   <!-- Bottom Navigation Bar -->
   <view class="bottom-nav">
     <view class="nav-item active" bindtap="onNavTap" data-tab="home">
-      <image class="nav-icon-img" src="/images/home-active.svg" mode="aspectFit"></image>
+      <text class="nav-icon-text nav-home">\u2302</text>
       <text class="nav-label active">Home</text>
     </view>
     <view class="nav-item" bindtap="onNavTap" data-tab="plan">
-      <image class="nav-icon-img" src="/images/bowl-food.svg" mode="aspectFit"></image>
+      <text class="nav-icon-text">\uD83C\uDF71</text>
       <text class="nav-label">My Plan</text>
     </view>
     <view class="nav-item" bindtap="onNavTap" data-tab="activity">
-      <image class="nav-icon-img" src="/images/user.svg" mode="aspectFit"></image>
+      <text class="nav-icon-text">\uD83D\uDC64</text>
       <text class="nav-label">My Activity</text>
     </view>
     <!-- Home Indicator -->
