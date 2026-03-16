@@ -36,7 +36,40 @@
     </view>
   </view>
 
-  <!-- Sticky Filter Tabs (outside scroll-view) -->
+  <!-- Banner Carousel (outside scroll-view, collapses on scroll) -->
+  <view class="carousel-section {{carouselCollapsed ? 'collapsed' : ''}}">
+    <swiper
+      class="banner-swiper"
+      indicator-dots
+      indicator-color="rgba(204,225,159,0.5)"
+      indicator-active-color="#90CA14"
+      autoplay
+      interval="{{3000}}"
+      circular
+      current="{{currentBanner}}"
+      bindchange="onBannerChange"
+    >
+      <swiper-item wx:for="{{banners}}" wx:key="id">
+        <view class="banner-item">
+          <view class="banner-bg"></view>
+          <view class="banner-overlay"></view>
+          <view class="banner-content">
+            <view class="banner-discount-row">
+              <text class="banner-discount-num">{{item.discountNum}}</text>
+              <view class="banner-discount-symbols">
+                <text class="banner-percent">%</text>
+                <text class="banner-off">OFF</text>
+              </view>
+            </view>
+            <text class="banner-title">{{item.title}}</text>
+            <text class="banner-subtitle">{{item.subtitle}}</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- Filter Tabs (below carousel, sticks below search when carousel collapses) -->
   <view class="filter-section">
     <view class="filter-tabs">
       <view class="filter-icon-btn" bindtap="onFilterTap">
@@ -78,39 +111,6 @@
     enhanced="{{true}}"
     show-scrollbar="{{false}}"
   >
-    <!-- Banner Carousel -->
-    <view class="carousel-section {{carouselCollapsed ? 'collapsed' : ''}}">
-      <swiper
-        class="banner-swiper"
-        indicator-dots
-        indicator-color="rgba(204,225,159,0.5)"
-        indicator-active-color="#90CA14"
-        autoplay
-        interval="{{3000}}"
-        circular
-        current="{{currentBanner}}"
-        bindchange="onBannerChange"
-      >
-        <swiper-item wx:for="{{banners}}" wx:key="id">
-          <view class="banner-item">
-            <view class="banner-bg"></view>
-            <view class="banner-overlay"></view>
-            <view class="banner-content">
-              <view class="banner-discount-row">
-                <text class="banner-discount-num">{{item.discountNum}}</text>
-                <view class="banner-discount-symbols">
-                  <text class="banner-percent">%</text>
-                  <text class="banner-off">OFF</text>
-                </view>
-              </view>
-              <text class="banner-title">{{item.title}}</text>
-              <text class="banner-subtitle">{{item.subtitle}}</text>
-            </view>
-          </view>
-        </swiper-item>
-      </swiper>
-    </view>
-
     <!-- Healthy Savings Section (Popular Menu) -->
     <view class="section">
       <view class="section-header">

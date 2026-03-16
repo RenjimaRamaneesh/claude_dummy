@@ -10,6 +10,8 @@ page {
   background: #FFFFFF;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ========== Shade Gradient ========== */
@@ -174,20 +176,15 @@ page {
   color: #949494;
 }
 
-/* ========== Content Scroll ========== */
-.content-scroll {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-}
-
-/* ========== Banner Carousel ========== */
+/* ========== Banner Carousel (outside scroll-view) ========== */
 .carousel-section {
   padding: 0 40rpx;
   margin-bottom: 20rpx;
   max-height: 380rpx;
   opacity: 1;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.3s ease,
     margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1),
@@ -290,7 +287,7 @@ page {
   margin-top: 4rpx;
 }
 
-/* ========== Filter Horizontal Bar (Sticky) ========== */
+/* ========== Filter Horizontal Bar (below carousel, sticky) ========== */
 .filter-section {
   padding: 0 40rpx 20rpx;
   position: relative;
@@ -415,6 +412,14 @@ page {
   height: 12rpx;
   background: #15835D;
   border-radius: 50%;
+}
+
+/* ========== Content Scroll ========== */
+.content-scroll {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  flex: 1;
 }
 
 /* ========== Sections ========== */
