@@ -1,0 +1,49 @@
+<!-- pages/myplan/myplan.wxml -->
+<view class="page-container">
+  <view class="top-shade"></view>
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- Header -->
+  <view class="page-header">
+    <view class="back-button" bindtap="goBack">
+      <text class="arrow-left">&#x2039;</text>
+    </view>
+    <text class="page-title">My Plan</text>
+  </view>
+
+  <!-- Content -->
+  <view class="page-content">
+    <view class="empty-state">
+      <text class="empty-icon">&#x1F4CB;</text>
+      <text class="empty-title">No Plans Yet</text>
+      <text class="empty-desc">Start planning your meals to maintain a healthy lifestyle.</text>
+    </view>
+  </view>
+
+  <!-- Bottom Navigation Bar -->
+  <view class="bottom-nav">
+    <view class="nav-tabs">
+      <view class="nav-tab {{activeTab === 'home' ? 'active' : ''}}" bindtap="switchTab" data-tab="home">
+        <view class="nav-icon-wrap">
+          <text class="nav-icon">&#x2302;</text>
+        </view>
+        <text class="nav-label">Home</text>
+      </view>
+      <view class="nav-tab {{activeTab === 'myplan' ? 'active' : ''}}" bindtap="switchTab" data-tab="myplan">
+        <view class="nav-icon-wrap">
+          <text class="nav-icon">&#x2615;</text>
+        </view>
+        <text class="nav-label">My Plan</text>
+      </view>
+      <view class="nav-tab {{activeTab === 'myactivity' ? 'active' : ''}}" bindtap="switchTab" data-tab="myactivity">
+        <view class="nav-icon-wrap">
+          <text class="nav-icon">&#x263A;</text>
+        </view>
+        <text class="nav-label">My Activity</text>
+      </view>
+    </view>
+    <view class="home-indicator">
+      <view class="indicator-bar"></view>
+    </view>
+  </view>
+</view>

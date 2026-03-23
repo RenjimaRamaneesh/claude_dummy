@@ -1,0 +1,654 @@
+/* pages/index/index.wxss */
+
+/* ========== Page Container ========== */
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== Top Shade Gradient ========== */
+.top-shade {
+  position: absolute;
+  width: 100%;
+  height: 200rpx;
+  left: 0;
+  top: 0;
+  background: linear-gradient(180deg, #90CA14 0%, #FFFFFF 100%);
+  border-radius: 40rpx;
+  z-index: 0;
+}
+
+/* ========== Status Bar ========== */
+.status-bar {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Header ========== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 40rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.location-pin {
+  margin-right: 12rpx;
+}
+
+.pin-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.deliver-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.deliver-label {
+  font-weight: 600;
+  font-size: 28rpx;
+  line-height: 36rpx;
+  color: #D14040;
+}
+
+.deliver-address {
+  font-weight: 600;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #1E1E1E;
+  margin-top: 2rpx;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.header-icon-btn {
+  width: 64rpx;
+  height: 64rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4rpx 4rpx 24rpx rgba(0, 0, 0, 0.15);
+}
+
+.dots-icon {
+  font-size: 36rpx;
+  color: #1E1E1E;
+  line-height: 1;
+}
+
+.profile-icon {
+  font-size: 36rpx;
+  color: #1E1E1E;
+  line-height: 1;
+}
+
+/* ========== Search Bar ========== */
+.search-bar {
+  margin: 16rpx 40rpx;
+  padding: 16rpx 24rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #DDDDDD;
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.search-icon {
+  font-size: 28rpx;
+  margin-right: 12rpx;
+  color: #A0A0A0;
+}
+
+.search-placeholder {
+  font-weight: 400;
+  font-size: 28rpx;
+  line-height: 36rpx;
+  color: #A0A0A0;
+}
+
+/* ========== Scroll Content ========== */
+.scroll-content {
+  position: relative;
+  z-index: 1;
+  height: calc(100vh - 200rpx);
+}
+
+/* ========== Promo Banner (Collapsible) ========== */
+.promo-banner-wrapper {
+  margin: 16rpx 40rpx;
+  overflow: hidden;
+  max-height: 400rpx;
+  transition: max-height 0.35s ease, margin 0.35s ease, opacity 0.35s ease;
+  opacity: 1;
+}
+
+.promo-banner-wrapper.collapsed {
+  max-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  opacity: 0;
+}
+
+.promo-banner {
+  background: linear-gradient(135deg, #E8F5C8 0%, #C5DE8E 50%, #D4E8A8 100%);
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx 24rpx;
+  position: relative;
+}
+
+.promo-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.promo-discount-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.promo-discount-number {
+  font-weight: 800;
+  font-size: 120rpx;
+  line-height: 120rpx;
+  color: #2D4A00;
+}
+
+.promo-percent-off {
+  display: flex;
+  flex-direction: column;
+  margin-left: 4rpx;
+  margin-top: 8rpx;
+}
+
+.promo-percent {
+  font-weight: 700;
+  font-size: 36rpx;
+  line-height: 36rpx;
+  color: #2D4A00;
+}
+
+.promo-off {
+  font-weight: 700;
+  font-size: 48rpx;
+  line-height: 48rpx;
+  color: #2D4A00;
+}
+
+.promo-title {
+  font-weight: 700;
+  font-size: 36rpx;
+  line-height: 44rpx;
+  color: #1E1E1E;
+  margin-top: 8rpx;
+}
+
+.promo-description {
+  font-weight: 500;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #4A4A4A;
+  margin-top: 4rpx;
+}
+
+.promo-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+.promo-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.promo-dot.active {
+  background: #456401;
+  width: 24rpx;
+  border-radius: 8rpx;
+}
+
+/* ========== Filter Tabs ========== */
+.filter-tabs-row {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 40rpx;
+  gap: 16rpx;
+}
+
+.filter-menu-btn {
+  width: 64rpx;
+  height: 64rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #DDDDDD;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menu-hamburger {
+  font-size: 36rpx;
+  color: #1E1E1E;
+  line-height: 1;
+}
+
+.filter-scroll {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 12rpx;
+}
+
+.filter-tab {
+  padding: 12rpx 28rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #DDDDDD;
+  border-radius: 32rpx;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-tab text {
+  font-weight: 500;
+  font-size: 26rpx;
+  line-height: 32rpx;
+  color: #4A4A4A;
+  white-space: nowrap;
+}
+
+.filter-tab.active {
+  background: #1E1E1E;
+  border-color: #1E1E1E;
+}
+
+.filter-tab.active text {
+  color: #FFFFFF;
+}
+
+.filter-camera-btn {
+  width: 64rpx;
+  height: 64rpx;
+  background: #FFFFFF;
+  border: 2rpx solid #DDDDDD;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.camera-icon {
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+/* ========== Sections ========== */
+.section {
+  padding: 24rpx 40rpx 0;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 36rpx;
+  line-height: 44rpx;
+  color: #1E1E1E;
+}
+
+.section-icon-badge {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.savings-badge {
+  background: #E8F5C8;
+  border: 2rpx solid #90CA14;
+}
+
+.protein-badge {
+  background: #FFE8E8;
+  border: 2rpx solid #F28893;
+}
+
+.badge-icon {
+  font-weight: 700;
+  font-size: 24rpx;
+  color: #456401;
+}
+
+.protein-icon {
+  color: #D14040;
+}
+
+.section-subtitle {
+  font-weight: 400;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #7A7A7A;
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* ========== Food Grid ========== */
+.food-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.food-card {
+  width: calc(50% - 10rpx);
+  display: flex;
+  flex-direction: column;
+}
+
+.food-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 260rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  background: #F5F5F5;
+}
+
+.food-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #F0F0F0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 12rpx;
+}
+
+.food-badge {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 2rpx solid #DDDDDD;
+}
+
+.food-badge.green {
+  background: #E8F5C8;
+  border-color: #90CA14;
+}
+
+.food-badge-icon {
+  font-size: 20rpx;
+  color: #456401;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-icon {
+  font-size: 36rpx;
+  color: #CCCCCC;
+}
+
+.heart-icon.active {
+  color: #D14040;
+}
+
+.food-name {
+  font-weight: 700;
+  font-size: 26rpx;
+  line-height: 34rpx;
+  color: #1E1E1E;
+  margin-top: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.food-vendor {
+  font-weight: 400;
+  font-size: 22rpx;
+  line-height: 28rpx;
+  color: #7A7A7A;
+  margin-top: 2rpx;
+}
+
+.food-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.food-cal {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.fire-icon-sm {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.cal-text {
+  font-weight: 500;
+  font-size: 22rpx;
+  line-height: 28rpx;
+  color: #7A7A7A;
+}
+
+.add-btn {
+  background: #E8F5C8;
+  border: 2rpx solid #90CA14;
+  border-radius: 12rpx;
+  padding: 4rpx 16rpx;
+}
+
+.add-btn-text {
+  font-weight: 600;
+  font-size: 22rpx;
+  line-height: 28rpx;
+  color: #456401;
+}
+
+/* ========== Plan My Meal Floating Banner ========== */
+.plan-meal-banner {
+  position: fixed;
+  bottom: 180rpx;
+  left: 40rpx;
+  right: 40rpx;
+  background: #E8F5C8;
+  border: 2rpx solid #CCE19F;
+  border-radius: 24rpx;
+  padding: 20rpx 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 99;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.1);
+}
+
+.plan-meal-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.plan-meal-clock {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-icon-lg {
+  font-size: 40rpx;
+}
+
+.plan-meal-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-meal-title {
+  font-weight: 700;
+  font-size: 28rpx;
+  line-height: 36rpx;
+  color: #1E1E1E;
+}
+
+.plan-meal-desc {
+  font-weight: 400;
+  font-size: 22rpx;
+  line-height: 28rpx;
+  color: #4A4A4A;
+}
+
+.plan-meal-arrow {
+  width: 56rpx;
+  height: 56rpx;
+  background: #90CA14;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-icon {
+  font-size: 32rpx;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* ========== Bottom Navigation ========== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #FFFFFF;
+  border-top: 2rpx solid #F0F0F0;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-tabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12rpx 0 8rpx;
+}
+
+.nav-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 8rpx 0;
+}
+
+.nav-icon-wrap {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon {
+  font-size: 40rpx;
+  color: #A0A0A0;
+}
+
+.nav-tab.active .nav-icon {
+  color: #456401;
+}
+
+.nav-label {
+  font-weight: 500;
+  font-size: 20rpx;
+  line-height: 24rpx;
+  color: #A0A0A0;
+  margin-top: 4rpx;
+}
+
+.nav-tab.active .nav-label {
+  color: #456401;
+  font-weight: 600;
+}
+
+/* Active tab underline */
+.nav-tab.active {
+  border-top: 4rpx solid #456401;
+}
+
+/* Home Indicator */
+.home-indicator {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16rpx;
+  padding-top: 4rpx;
+}
+
+.indicator-bar {
+  width: 288rpx;
+  height: 10rpx;
+  background: #000000;
+  border-radius: 200rpx;
+}
+
+/* ========== Bottom Spacer ========== */
+.bottom-spacer {
+  height: 360rpx;
+}

@@ -1,0 +1,216 @@
+<!-- pages/index/index.wxml -->
+<view class="home-page">
+  <!-- Top Gradient Shade -->
+  <view class="top-shade"></view>
+
+  <!-- Status Bar Spacer -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- Header: Deliver Here + Icons -->
+  <view class="header">
+    <view class="header-left">
+      <view class="location-pin">
+        <image class="pin-icon" src="/images/location.svg" mode="aspectFit" />
+      </view>
+      <view class="deliver-info">
+        <text class="deliver-label">Deliver Here</text>
+        <text class="deliver-address">Apartment 1203, Al Furjan.. &#x25BE;</text>
+      </view>
+    </view>
+    <view class="header-right">
+      <view class="header-icon-btn">
+        <text class="dots-icon">&#x2026;</text>
+      </view>
+      <view class="header-icon-btn profile-btn">
+        <text class="profile-icon">&#x25CE;</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Search Bar -->
+  <view class="search-bar" bindtap="goToSearch">
+    <text class="search-icon">&#x1F50D;</text>
+    <text class="search-placeholder">Search...</text>
+  </view>
+
+  <!-- Scrollable Content -->
+  <scroll-view
+    scroll-y
+    class="scroll-content"
+    bindscroll="onScroll"
+    scroll-top="{{scrollTop}}"
+    enhanced="{{true}}"
+    bounces="{{true}}"
+  >
+    <!-- Collapsible Promo Banner Widget -->
+    <view class="promo-banner-wrapper {{bannerCollapsed ? 'collapsed' : ''}}">
+      <view class="promo-banner">
+        <view class="promo-content">
+          <view class="promo-discount-row">
+            <text class="promo-discount-number">20</text>
+            <view class="promo-percent-off">
+              <text class="promo-percent">%</text>
+              <text class="promo-off">OFF</text>
+            </view>
+          </view>
+          <text class="promo-title">Healthy Kitchen Combo</text>
+          <text class="promo-description">Any 2 meals for just AED 50 • Save up to AED 20</text>
+        </view>
+        <!-- Dots Indicator -->
+        <view class="promo-dots">
+          <view class="promo-dot active"></view>
+          <view class="promo-dot"></view>
+          <view class="promo-dot"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Filter Tabs Row -->
+    <view class="filter-tabs-row">
+      <view class="filter-menu-btn" bindtap="openFilterMenu">
+        <text class="menu-hamburger">&#x2630;</text>
+      </view>
+      <scroll-view scroll-x class="filter-scroll">
+        <view class="filter-tabs">
+          <block wx:for="{{filters}}" wx:key="id">
+            <view
+              class="filter-tab {{activeFilter === item.id ? 'active' : ''}}"
+              bindtap="selectFilter"
+              data-filter="{{item.id}}"
+            >
+              <text>{{item.label}}</text>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+      <view class="filter-camera-btn" bindtap="openCamera">
+        <text class="camera-icon">&#x1F4F7;</text>
+      </view>
+    </view>
+
+    <!-- Healthy Savings Section -->
+    <view class="section">
+      <view class="section-header-row">
+        <text class="section-title">Healthy Savings</text>
+        <view class="section-icon-badge savings-badge">
+          <text class="badge-icon">$</text>
+        </view>
+      </view>
+      <text class="section-subtitle">Popular healthy picks near you</text>
+
+      <view class="food-grid">
+        <block wx:for="{{healthySavings}}" wx:key="id">
+          <view class="food-card">
+            <view class="food-image-wrap">
+              <view class="food-image-placeholder">
+                <view class="food-badge {{item.image ? '' : 'green'}}">
+                  <text class="food-badge-icon">&#x25A3;</text>
+                </view>
+              </view>
+              <view class="favorite-btn" bindtap="toggleFavorite" data-id="{{item.id}}" data-section="healthySavings">
+                <text class="heart-icon {{item.isFavorite ? 'active' : ''}}">&#x2661;</text>
+              </view>
+            </view>
+            <text class="food-name">{{item.name}}</text>
+            <text class="food-vendor">{{item.vendor}}</text>
+            <view class="food-bottom-row">
+              <view class="food-cal">
+                <image class="fire-icon-sm" src="/images/fire.svg" mode="aspectFit" />
+                <text class="cal-text">{{item.calories}} kcal</text>
+              </view>
+              <view class="add-btn" bindtap="addItem" data-id="{{item.id}}">
+                <text class="add-btn-text">+ Add</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- Protein Picks Section -->
+    <view class="section">
+      <view class="section-header-row">
+        <text class="section-title">Protein Picks</text>
+        <view class="section-icon-badge protein-badge">
+          <text class="badge-icon protein-icon">&#x2641;</text>
+        </view>
+      </view>
+      <text class="section-subtitle">High protein meals curated for you</text>
+
+      <view class="food-grid">
+        <block wx:for="{{proteinPicks}}" wx:key="id">
+          <view class="food-card">
+            <view class="food-image-wrap">
+              <view class="food-image-placeholder">
+                <view class="food-badge green">
+                  <text class="food-badge-icon">&#x25A3;</text>
+                </view>
+              </view>
+              <view class="favorite-btn" bindtap="toggleFavorite" data-id="{{item.id}}" data-section="proteinPicks">
+                <text class="heart-icon {{item.isFavorite ? 'active' : ''}}">&#x2661;</text>
+              </view>
+            </view>
+            <text class="food-name">{{item.name}}</text>
+            <text class="food-vendor">{{item.vendor}}</text>
+            <view class="food-bottom-row">
+              <view class="food-cal">
+                <image class="fire-icon-sm" src="/images/fire.svg" mode="aspectFit" />
+                <text class="cal-text">{{item.calories}} kcal</text>
+              </view>
+              <view class="add-btn" bindtap="addItem" data-id="{{item.id}}">
+                <text class="add-btn-text">+ Add</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- Bottom spacer for nav bar + plan my meal banner -->
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <!-- Plan My Meal Floating Banner -->
+  <view class="plan-meal-banner" bindtap="goToPlanMeal">
+    <view class="plan-meal-left">
+      <view class="plan-meal-clock">
+        <text class="clock-icon-lg">&#x23F0;</text>
+      </view>
+      <view class="plan-meal-text">
+        <text class="plan-meal-title">Plan My Meal</text>
+        <text class="plan-meal-desc">Plan once, enjoy all week.</text>
+      </view>
+    </view>
+    <view class="plan-meal-arrow">
+      <text class="arrow-icon">&#x2197;</text>
+    </view>
+  </view>
+
+  <!-- Bottom Navigation Bar -->
+  <view class="bottom-nav">
+    <view class="nav-tabs">
+      <view class="nav-tab {{activeTab === 'home' ? 'active' : ''}}" bindtap="switchTab" data-tab="home">
+        <view class="nav-icon-wrap">
+          <text class="nav-icon home-icon">&#x2302;</text>
+        </view>
+        <text class="nav-label">Home</text>
+      </view>
+      <view class="nav-tab {{activeTab === 'myplan' ? 'active' : ''}}" bindtap="switchTab" data-tab="myplan">
+        <view class="nav-icon-wrap">
+          <text class="nav-icon plan-icon">&#x2615;</text>
+        </view>
+        <text class="nav-label">My Plan</text>
+      </view>
+      <view class="nav-tab {{activeTab === 'myactivity' ? 'active' : ''}}" bindtap="switchTab" data-tab="myactivity">
+        <view class="nav-icon-wrap">
+          <text class="nav-icon activity-icon">&#x263A;</text>
+        </view>
+        <text class="nav-label">My Activity</text>
+      </view>
+    </view>
+    <!-- Home Indicator -->
+    <view class="home-indicator">
+      <view class="indicator-bar"></view>
+    </view>
+  </view>
+</view>
