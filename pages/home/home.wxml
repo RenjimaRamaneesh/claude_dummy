@@ -1,0 +1,321 @@
+<!-- pages/home/home.wxml -->
+<view class="page-container">
+  <!-- Status Bar Spacer -->
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- Shade Gradient -->
+  <view class="shade-gradient"></view>
+
+  <!-- Fixed Header -->
+  <view class="header">
+    <view class="location-section">
+      <image style="width:36rpx;height:36rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTciIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNyAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNOC41IDEuMDYyNUM1LjY3IDEuMDYyNSAzLjE4NzUgMy41NDUgMy4xODc1IDYuMzc1QzMuMTg3NSAxMC4yNTMxIDguNSAxNS45Mzc1IDguNSAxNS45Mzc1QzguNSAxNS45Mzc1IDEzLjgxMjUgMTAuMjUzMSAxMy44MTI1IDYuMzc1QzEzLjgxMjUgMy41NDUgMTEuMzMgMS4wNjI1IDguNSAxLjA2MjVaTTguNSA4LjVDNy4zMjUgOC41IDYuMzc1IDcuNTUgNi4zNzUgNi4zNzVDNi4zNzUgNS4yIDcuMzI1IDQuMjUgOC41IDQuMjVDOS42NzUgNC4yNSAxMC42MjUgNS4yIDEwLjYyNSA2LjM3NUMxMC42MjUgNy41NSA5LjY3NSA4LjUgOC41IDguNVoiIGZpbGw9IiNFRTUxNUQiLz4KPC9zdmc+Cg==" mode="aspectFit"></image>
+      <view class="location-text">
+        <text class="deliver-label">Deliver Here</text>
+        <view class="address-row">
+          <text class="address">Apartment 1203, Al Furjan..</text>
+          <text class="dropdown-arrow">&#x25BE;</text>
+        </view>
+      </view>
+    </view>
+    <view class="header-icons">
+      <view class="icon-btn-wrap" bindtap="onFavoriteTap">
+        <image style="width:28rpx;height:28rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NDk0OTQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAuODQgNC42MWE1LjUgNS41IDAgMCAwLTcuNzggMEwxMiA1LjY3bC0xLjA2LTEuMDZhNS41IDUuNSAwIDAgMC03Ljc4IDcuNzhsMS4wNiAxLjA2TDEyIDIxLjIzbDcuNzgtNy43OCAxLjA2LTEuMDZhNS41IDUuNSAwIDAgMCAwLTcuNzh6Ii8+PC9zdmc+Cg==" mode="aspectFit"></image>
+      </view>
+      <view class="icon-btn-wrap" bindtap="onNotificationTap">
+        <image style="width:28rpx;height:28rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NDk0OTQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTggOEE2IDYgMCAwIDAgNiA4YzAgNy0zIDktMyA5aDE4cy0zLTItMy05Ii8+PHBhdGggZD0iTTEzLjczIDIxYTIgMiAwIDAgMS0zLjQ2IDAiLz48L3N2Zz4K" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- Search Bar -->
+  <view class="search-container">
+    <view class="search-bar" bindtap="onSearchTap">
+      <image style="width:32rpx;height:32rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5NDk0OTQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ii8+PGxpbmUgeDE9IjIxIiB5MT0iMjEiIHgyPSIxNi42NSIgeTI9IjE2LjY1Ii8+PC9zdmc+Cg==" mode="aspectFit"></image>
+      <text class="search-placeholder">Search...</text>
+    </view>
+  </view>
+
+  <!-- Banner Carousel - collapses on scroll, stays ABOVE filter tabs -->
+  <view class="carousel-section {{carouselCollapsed ? 'collapsed' : ''}}">
+    <swiper
+      class="banner-swiper"
+      indicator-dots
+      indicator-color="rgba(204,225,159,0.5)"
+      indicator-active-color="#90CA14"
+      autoplay
+      interval="{{3000}}"
+      circular
+      current="{{currentBanner}}"
+      bindchange="onBannerChange"
+    >
+      <swiper-item wx:for="{{banners}}" wx:key="id">
+        <view class="banner-item">
+          <view class="banner-bg"></view>
+          <view class="banner-overlay"></view>
+          <view class="banner-content">
+            <view class="banner-discount-row">
+              <text class="banner-discount-num">{{item.discountNum}}</text>
+              <view class="banner-discount-symbols">
+                <text class="banner-percent">%</text>
+                <text class="banner-off">OFF</text>
+              </view>
+            </view>
+            <text class="banner-title">{{item.title}}</text>
+            <text class="banner-subtitle">{{item.subtitle}}</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- Filter Tabs - sticks below search bar when carousel collapses -->
+  <view class="filter-section">
+    <view class="filter-tabs">
+      <view class="filter-icon-btn" bindtap="onFilterTap">
+        <image style="width:32rpx;height:32rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM5MENBMTQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iNCIgeTE9IjYiIHgyPSIyMCIgeTI9IjYiLz48bGluZSB4MT0iNCIgeTE9IjEyIiB4Mj0iMjAiIHkyPSIxMiIvPjxsaW5lIHgxPSI0IiB5MT0iMTgiIHgyPSIyMCIgeTI9IjE4Ii8+PC9zdmc+Cg==" mode="aspectFit"></image>
+      </view>
+      <scroll-view class="tabs-scroll" scroll-x enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="tabs-track">
+          <block wx:for="{{filterTabs}}" wx:key="value">
+            <view
+              class="tab-item {{activeTab === item.value ? 'active' : ''}}"
+              bindtap="onTabChange"
+              data-value="{{item.value}}"
+            >
+              <text>{{item.label}}</text>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+      <!-- Veg Toggle -->
+      <view class="veg-toggle" bindtap="toggleVeg">
+        <view class="veg-toggle-track {{vegOnly ? 'on' : ''}}">
+          <view class="veg-toggle-thumb">
+            <view class="veg-indicator">
+              <view class="veg-dot"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Scrollable Content -->
+  <scroll-view
+    scroll-y
+    class="content-scroll"
+    style="height: {{scrollHeight}}px;"
+    bindscroll="onContentScroll"
+    enhanced="{{true}}"
+    show-scrollbar="{{false}}"
+  >
+    <!-- Healthy Savings Section (Popular Menu) -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-row">
+          <text class="section-title">Healthy Savings</text>
+          <image style="width:36rpx;height:36rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOTBDQTE0IiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PSIxMiIgeT0iMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM5MENBMTQiIGZvbnQtd2VpZ2h0PSJib2xkIj4kPC90ZXh0Pjwvc3ZnPgo=" mode="aspectFit"></image>
+        </view>
+        <text class="section-subtitle">Popular healthy picks near you</text>
+      </view>
+
+      <!-- Loading State -->
+      <view wx:if="{{loadingPopular}}" class="loading-row">
+        <view class="loading-card" wx:for="{{[1,2,3]}}" wx:key="*this">
+          <view class="loading-image-placeholder"></view>
+          <view class="loading-text-placeholder"></view>
+          <view class="loading-text-short"></view>
+        </view>
+      </view>
+
+      <!-- Empty State -->
+      <view wx:elif="{{healthySavings.length === 0}}" class="empty-state">
+        <text class="empty-text">No items available</text>
+      </view>
+
+      <scroll-view wx:else class="horizontal-scroll" scroll-x enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="meal-cards-row">
+          <block wx:for="{{healthySavings}}" wx:key="id">
+            <view class="meal-card" bindtap="onMealTap" data-id="{{item.id}}">
+              <view class="meal-image-wrap">
+                <image class="meal-image" src="{{item.image}}" mode="aspectFill" lazy-load></image>
+                <view class="diet-badge {{item.dietType}}">
+                  <view class="diet-badge-dot"></view>
+                </view>
+                <view class="heart-btn" catchtap="onHeartTap" data-id="{{item.id}}">
+                  <image style="width:28rpx;height:28rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAuODQgNC42MWE1LjUgNS41IDAgMCAwLTcuNzggMEwxMiA1LjY3bC0xLjA2LTEuMDZhNS41IDUuNSAwIDAgMC03Ljc4IDcuNzhsMS4wNiAxLjA2TDEyIDIxLjIzbDcuNzgtNy43OCAxLjA2LTEuMDZhNS41IDUuNSAwIDAgMCAwLTcuNzh6Ii8+PC9zdmc+Cg==" mode="aspectFit"></image>
+                </view>
+              </view>
+              <view class="meal-info">
+                <text class="meal-name">{{item.name}}</text>
+                <text class="meal-vendor">{{item.restaurant}}</text>
+              </view>
+              <view class="meal-footer">
+                <view class="calories-row">
+                  <image style="width:28rpx;height:28rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTAgMi41QzEwIDIuNSA1IDcuNSA1IDExLjY2NjdDNSAxNC40MjgzIDcuMjM4MzMgMTYuNjY2NyAxMCAxNi42NjY3QzEyLjc2MTcgMTYuNjY2NyAxNSAxNC40MjgzIDE1IDExLjY2NjdDMTUgNy41IDEwIDIuNSAxMCAyLjVaTTEwIDE1QzguMTYxNjcgMTUgNi42NjY2NyAxMy41MDUgNi42NjY2NyAxMS42NjY3QzYuNjY2NjcgOS44MjgzMyA4LjMzMzMzIDcuMDgzMzMgMTAgNS40MTY2N0MxMS42NjY3IDcuMDgzMzMgMTMuMzMzMyA5LjgyODMzIDEzLjMzMzMgMTEuNjY2N0MxMy4zMzMzIDEzLjUwNSAxMS44MzgzIDE1IDEwIDE1WiIgZmlsbD0iI0Y3QTQyRiIvPgo8L3N2Zz4K" mode="aspectFit"></image>
+                  <text class="calories-text">{{item.calories}}+ kcal</text>
+                </view>
+                <view class="add-btn" catchtap="onAddMeal" data-id="{{item.id}}">
+                  <text class="add-plus">+</text>
+                  <text class="add-text">Add</text>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- Protein Picks Section (High Protein Menu) -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-row">
+          <text class="section-title">Protein Picks</text>
+          <image style="width:36rpx;height:36rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj48cGF0aCBkPSJNNyA0YzAgMC0yIDItMiA1czIgNSAyIDUiIHN0cm9rZT0iIzkwQ0ExNCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMTcgNGMwIDAgMiAyIDIgNXMtMiA1LTIgNSIgc3Ryb2tlPSIjOTBDQTE0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxyZWN0IHg9IjkiIHk9IjYiIHdpZHRoPSI2IiBoZWlnaHQ9IjgiIHJ4PSIxIiBzdHJva2U9IiM5MENBMTQiIHN0cm9rZS13aWR0aD0iMiIvPjxsaW5lIHgxPSIxMiIgeTE9IjE0IiB4Mj0iMTIiIHkyPSIyMCIgc3Ryb2tlPSIjOTBDQTE0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPgo=" mode="aspectFit"></image>
+        </view>
+        <text class="section-subtitle">High-protein meals to keep you full longer</text>
+      </view>
+
+      <view wx:if="{{loadingProtein}}" class="loading-row">
+        <view class="loading-card" wx:for="{{[1,2,3]}}" wx:key="*this">
+          <view class="loading-image-placeholder"></view>
+          <view class="loading-text-placeholder"></view>
+          <view class="loading-text-short"></view>
+        </view>
+      </view>
+
+      <view wx:elif="{{proteinPicks.length === 0}}" class="empty-state">
+        <text class="empty-text">No items available</text>
+      </view>
+
+      <scroll-view wx:else class="horizontal-scroll" scroll-x enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="meal-cards-row">
+          <block wx:for="{{proteinPicks}}" wx:key="id">
+            <view class="meal-card" bindtap="onMealTap" data-id="{{item.id}}">
+              <view class="meal-image-wrap">
+                <image class="meal-image" src="{{item.image}}" mode="aspectFill" lazy-load></image>
+                <view class="diet-badge {{item.dietType}}">
+                  <view class="diet-badge-dot"></view>
+                </view>
+                <view class="heart-btn" catchtap="onHeartTap" data-id="{{item.id}}">
+                  <image style="width:28rpx;height:28rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAuODQgNC42MWE1LjUgNS41IDAgMCAwLTcuNzggMEwxMiA1LjY3bC0xLjA2LTEuMDZhNS41IDUuNSAwIDAgMC03Ljc4IDcuNzhsMS4wNiAxLjA2TDEyIDIxLjIzbDcuNzgtNy43OCAxLjA2LTEuMDZhNS41IDUuNSAwIDAgMCAwLTcuNzh6Ii8+PC9zdmc+Cg==" mode="aspectFit"></image>
+                </view>
+              </view>
+              <view class="meal-info">
+                <text class="meal-name">{{item.name}}</text>
+                <text class="meal-vendor">{{item.restaurant}}</text>
+              </view>
+              <view class="meal-footer">
+                <view class="calories-row">
+                  <image style="width:28rpx;height:28rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTAgMi41QzEwIDIuNSA1IDcuNSA1IDExLjY2NjdDNSAxNC40MjgzIDcuMjM4MzMgMTYuNjY2NyAxMCAxNi42NjY3QzEyLjc2MTcgMTYuNjY2NyAxNSAxNC40MjgzIDE1IDExLjY2NjdDMTUgNy41IDEwIDIuNSAxMCAyLjVaTTEwIDE1QzguMTYxNjcgMTUgNi42NjY2NyAxMy41MDUgNi42NjY2NyAxMS42NjY3QzYuNjY2NjcgOS44MjgzMyA4LjMzMzMzIDcuMDgzMzMgMTAgNS40MTY2N0MxMS42NjY3IDcuMDgzMzMgMTMuMzMzMyA5LjgyODMzIDEzLjMzMzMgMTEuNjY2N0MxMy4zMzMzIDEzLjUwNSAxMS44MzgzIDE1IDEwIDE1WiIgZmlsbD0iI0Y3QTQyRiIvPgo8L3N2Zz4K" mode="aspectFit"></image>
+                  <text class="calories-text">{{item.calories}}+ kcal</text>
+                </view>
+                <view class="add-btn-green" catchtap="onAddMeal" data-id="{{item.id}}">
+                  <text class="add-text-white">Add</text>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- All Menu Section -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-title-row">
+          <text class="section-title">All Menu</text>
+          <image style="width:36rpx;height:36rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMiAxMEMyIDEzLjMxMzcgNC42ODYyOSAxNiA4IDE2SDEyQzE1LjMxMzcgMTYgMTggMTMuMzEzNyAxOCAxMEgyWk0xMCAzQzEwIDMgOCA1IDggNi41QzggNy4zMjg0MyA4LjY3MTU3IDggOS41IDhDMTAuMzI4NCA4IDExIDcuMzI4NDMgMTEgNi41QzExIDUgMTAgMyAxMCAzWk02IDRDNiA0IDUgNS41IDUgNi41QzUgNy4wNTIyOCA1LjQ0NzcyIDcuNSA2IDcuNUM2LjU1MjI4IDcuNSA3IDcuMDUyMjggNyA2LjVDNyA1LjUgNiA0IDYgNFpNMTQgNEMxNCA0IDEzIDUuNSAxMyA2LjVDMTMgNy4wNTIyOCAxMy40NDc3IDcuNSAxNCA3LjVDMTQuNTUyMyA3LjUgMTUgNy4wNTIyOCAxNSA2LjVDMTUgNS41IDE0IDQgMTQgNFpNNCAxN0gxNkMxNiAxNy41NTIzIDE1LjU1MjMgMTggMTUgMThINUM0LjQ0NzcyIDE4IDQgMTcuNTUyMyA0IDE3WiIgZmlsbD0iIzdBQjMwMCIvPgo8L3N2Zz4K" mode="aspectFit"></image>
+        </view>
+        <text class="section-subtitle">Browse our full selection</text>
+      </view>
+
+      <view wx:if="{{loadingAll}}" class="loading-column">
+        <view class="loading-large-card" wx:for="{{[1,2]}}" wx:key="*this">
+          <view class="loading-large-image"></view>
+        </view>
+      </view>
+
+      <view wx:elif="{{allMenuItems.length === 0}}" class="empty-state">
+        <text class="empty-text">No items available</text>
+      </view>
+
+      <block wx:else>
+        <block wx:for="{{allMenuItems}}" wx:key="id">
+          <view class="large-meal-card" bindtap="onMealTap" data-id="{{item.id}}">
+            <view class="large-image-wrap">
+              <image class="large-meal-image" src="{{item.image}}" mode="aspectFill" lazy-load></image>
+              <view class="large-overlay"></view>
+              <view class="diet-badge large-badge {{item.dietType}}">
+                <view class="diet-badge-dot"></view>
+              </view>
+              <view class="heart-btn large-heart" catchtap="onHeartTap" data-id="{{item.id}}">
+                <image style="width:28rpx;height:28rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAuODQgNC42MWE1LjUgNS41IDAgMCAwLTcuNzggMEwxMiA1LjY3bC0xLjA2LTEuMDZhNS41IDUuNSAwIDAgMC03Ljc4IDcuNzhsMS4wNiAxLjA2TDEyIDIxLjIzbDcuNzgtNy43OCAxLjA2LTEuMDZhNS41IDUuNSAwIDAgMCAwLTcuNzh6Ii8+PC9zdmc+Cg==" mode="aspectFit"></image>
+              </view>
+              <view class="large-meal-overlay-info">
+                <view class="large-meal-text">
+                  <text class="large-meal-name">{{item.name}}</text>
+                  <text class="large-meal-vendor">{{item.restaurant}}</text>
+                </view>
+                <view class="large-meal-right">
+                  <view class="large-cost">
+                    <text class="dirham-symbol">AED</text>
+                    <text class="large-price">{{item.price}}</text>
+                  </view>
+                  <view class="large-calories">
+                    <image style="width:24rpx;height:24rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTAgMi41QzEwIDIuNSA1IDcuNSA1IDExLjY2NjdDNSAxNC40MjgzIDcuMjM4MzMgMTYuNjY2NyAxMCAxNi42NjY3QzEyLjc2MTcgMTYuNjY2NyAxNSAxNC40MjgzIDE1IDExLjY2NjdDMTUgNy41IDEwIDIuNSAxMCAyLjVaTTEwIDE1QzguMTYxNjcgMTUgNi42NjY2NyAxMy41MDUgNi42NjY2NyAxMS42NjY3QzYuNjY2NjcgOS44MjgzMyA4LjMzMzMzIDcuMDgzMzMgMTAgNS40MTY2N0MxMS42NjY3IDcuMDgzMzMgMTMuMzMzMyA5LjgyODMzIDEzLjMzMzMgMTEuNjY2N0MxMy4zMzMzIDEzLjUwNSAxMS44MzgzIDE1IDEwIDE1WiIgZmlsbD0iI0Y3QTQyRiIvPgo8L3N2Zz4K" mode="aspectFit"></image>
+                    <text class="large-cal-text">{{item.calories}}+ kcal</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view wx:if="{{item.tags.length > 0}}" class="meal-tags">
+              <block wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">
+                <view class="tag-pill">
+                  <text class="tag-text">{{tag}}</text>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+
+    <!-- Bottom Spacer -->
+    <view class="bottom-spacing"></view>
+  </scroll-view>
+
+  <!-- Floating Plan My Meal Card -->
+  <view class="floating-plan-card" bindtap="onPlanMealTap">
+    <view class="plan-left">
+      <image style="width:36rpx;height:36rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNOCAxLjMzMzM0QzQuMzIgMS4zMzMzNCAxLjMzMzMzIDQuMzIwMDEgMS4zMzMzMyA4LjAwMDAxQzEuMzMzMzMgMTEuNjggNC4zMiAxNC42NjY3IDggMTQuNjY2N0MxMS42OCAxNC42NjY3IDE0LjY2NjcgMTEuNjggMTQuNjY2NyA4LjAwMDAxQzE0LjY2NjcgNC4zMjAwMSAxMS42OCAxLjMzMzM0IDggMS4zMzMzNFpNOCAxMy4zMzMzQzUuMDUzMzMgMTMuMzMzMyAyLjY2NjY3IDEwLjk0NjcgMi42NjY2NyA4LjAwMDAxQzIuNjY2NjcgNS4wNTMzNCA1LjA1MzMzIDIuNjY2NjggOCAyLjY2NjY4QzEwLjk0NjcgMi42NjY2OCAxMy4zMzMzIDUuMDUzMzQgMTMuMzMzMyA4LjAwMDAxQzEzLjMzMzMgMTAuOTQ2NyAxMC45NDY3IDEzLjMzMzMgOCAxMy4zMzMzWiIgZmlsbD0iIzQ1NjQwMSIvPgogIDxwYXRoIGQ9Ik04LjMzMzMzIDQuNjY2NjhINy4zMzMzM1Y4LjY2NjY4TDEwLjgzMzMgMTAuNzY2N0wxMS4zMzMzIDkuOTQ2NjhMOC4zMzMzMyA4LjE2NjY4VjQuNjY2NjhaIiBmaWxsPSIjNDU2NDAxIi8+Cjwvc3ZnPgo=" mode="aspectFit"></image>
+      <view class="plan-text">
+        <text class="plan-title">Plan My Meal</text>
+        <text class="plan-subtitle">Plan once, enjoy all week.</text>
+      </view>
+    </view>
+    <view class="plan-arrow-btn">
+      <text class="plan-arrow">&#x2197;</text>
+    </view>
+  </view>
+
+  <!-- Bottom Navigation Bar -->
+  <view class="bottom-nav">
+    <view class="nav-item active" bindtap="onNavTap" data-tab="home">
+      <image style="width:44rpx;height:44rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjOTBDQTE0IiBzdHJva2U9IiM5MENBMTQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyA5bDktNyA5IDd2MTFhMiAyIDAgMCAxLTIgMkg1YTIgMiAwIDAgMS0yLTJ6Ii8+PHBvbHlsaW5lIHBvaW50cz0iOSAyMiA5IDEyIDE1IDEyIDE1IDIyIiBzdHJva2U9IiNGRkZGRkYiLz48L3N2Zz4K" mode="aspectFit"></image>
+      <text class="nav-label active">Home</text>
+    </view>
+    <view class="nav-item" bindtap="onNavTap" data-tab="plan">
+      <image style="width:44rpx;height:44rpx" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMiAxMEMyIDEzLjMxMzcgNC42ODYyOSAxNiA4IDE2SDEyQzE1LjMxMzcgMTYgMTggMTMuMzEzNyAxOCAxMEgyWk0xMCAzQzEwIDMgOCA1IDggNi41QzggNy4zMjg0MyA4LjY3MTU3IDggOS41IDhDMTAuMzI4NCA4IDExIDcuMzI4NDMgMTEgNi41QzExIDUgMTAgMyAxMCAzWk02IDRDNiA0IDUgNS41IDUgNi41QzUgNy4wNTIyOCA1LjQ0NzcyIDcuNSA2IDcuNUM2LjU1MjI4IDcuNSA3IDcuMDUyMjggNyA2LjVDNyA1LjUgNiA0IDYgNFpNMTQgNEMxNCA0IDEzIDUuNSAxMyA2LjVDMTMgNy4wNTIyOCAxMy40NDc3IDcuNSAxNCA3LjVDMTQuNTUyMyA3LjUgMTUgNy4wNTIyOCAxNSA2LjVDMTUgNS41IDE0IDQgMTQgNFpNNCAxN0gxNkMxNiAxNy41NTIzIDE1LjU1MjMgMTggMTUgMThINUM0LjQ0NzcyIDE4IDQgMTcuNTUyMyA0IDE3WiIgZmlsbD0iIzdBQjMwMCIvPgo8L3N2Zz4K" mode="aspectFit"></image>
+      <text class="nav-label">My Plan</text>
+    </view>
+    <view class="nav-item" bindtap="onNavTap" data-tab="activity">
+      <image style="width:44rpx;height:44rpx" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3NTc1NzUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCIvPjwvc3ZnPgo=" mode="aspectFit"></image>
+      <text class="nav-label">My Activity</text>
+    </view>
+    <view class="home-indicator">
+      <view class="indicator-bar"></view>
+    </view>
+  </view>
+</view>

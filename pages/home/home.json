@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "EatEasy",
+  "navigationBarBackgroundColor": "#90CA14",
+  "navigationBarTextStyle": "black",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F5F5F5",
+  "backgroundTextStyle": "dark",
+  "onReachBottomDistance": 50,
+  "usingComponents": {}
+}

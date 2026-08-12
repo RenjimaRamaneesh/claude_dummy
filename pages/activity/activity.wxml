@@ -1,0 +1,19 @@
+<view class="page-container">
+  <view class="status-bar" style="height: {{statusBarHeight}}px;"></view>
+  <view class="page-content">
+    <text class="page-heading">My Activity</text>
+    <text class="page-subtext">Your activity history will appear here.</text>
+  </view>
+
+  <view class="bottom-nav">
+    <view class="nav-item" bindtap="onNavTap" data-tab="home">
+      <text class="nav-label">Home</text>
+    </view>
+    <view class="nav-item" bindtap="onNavTap" data-tab="plan">
+      <text class="nav-label">My Plan</text>
+    </view>
+    <view class="nav-item active" bindtap="onNavTap" data-tab="activity">
+      <text class="nav-label active">My Activity</text>
+    </view>
+  </view>
+</view>
